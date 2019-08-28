@@ -1,11 +1,18 @@
 apply plugin: 'com.android.application'
 
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
     defaultConfig {
-        applicationId "arjuna.ri0.programmerbook"
-        minSdkVersion 17
-        targetSdkVersion 28
+        applicationId "grack.dev.moviedagger"
+        minSdkVersion 18
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -16,16 +23,49 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    dataBinding {
+        enabled = true
+    }
 }
+
+def lifeCycleExtensionsVersion = '2.0.0'
+def appCompatVersion = '1.0.2'
+def retrofitVersion = '2.3.0'
+def daggerVersion = '2.13'
+def glideVersion = '4.9.0'
+def mockitoVersion = '2.11.0'
+def rxJavaVersion = '2.1.0'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-    implementation 'com.google.android.material:material:1.1.0-alpha05'
 
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "androidx.appcompat:appcompat:$appCompatVersion"
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+
+    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxJavaVersion"
+
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+    kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
+
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
+
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifeCycleExtensionsVersion"
+
+    testImplementation 'junit:junit:4.12'
+    testImplementation "org.mockito:mockito-inline:$mockitoVersion"
+    testImplementation 'androidx.arch.core:core-testing:2.0.1'
+
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
 }
