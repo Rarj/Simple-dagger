@@ -30,8 +30,9 @@ android {
 
 def lifeCycleExtensionsVersion = '2.0.0'
 def appCompatVersion = '1.0.2'
+def materialVersion = '1.0.0'
 def retrofitVersion = '2.3.0'
-def daggerVersion = '2.13'
+def daggerVersion = '2.24'
 def glideVersion = '4.9.0'
 def mockitoVersion = '2.11.0'
 def rxJavaVersion = '2.1.0'
@@ -41,6 +42,7 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
+    implementation "com.google.android.material:material:$materialVersion"
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
@@ -67,5 +69,6 @@ dependencies {
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
 
 }

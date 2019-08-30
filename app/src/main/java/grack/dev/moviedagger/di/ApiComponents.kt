@@ -7,8 +7,8 @@ import grack.dev.moviedagger.ui.nowplaying.NowPlayingViewModel
 @Component(modules = [ApiModule::class])
 interface ApiComponents {
 
-    fun inject(viewModel: NowPlayingViewModel)
+  fun inject(viewModel: NowPlayingViewModel)
 
-    fun inject(service: NowPlayingProvider)
+  fun inject(service: NowPlayingProvider)
 
 }

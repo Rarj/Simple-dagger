@@ -3,76 +3,73 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools">
 
-  <androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="150dp"
-    android:layout_margin="8dp"
-    android:background="@drawable/rounded_corner_background">
-
-    <androidx.appcompat.widget.AppCompatButton
-      android:id="@+id/button_trailer"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="8dp"
-      android:padding="10dp"
-      android:background="@drawable/selector_button"
-      android:drawablePadding="8dp"
-      android:drawableStart="@drawable/ic_play"
-      android:maxLines="2"
-      android:text="Watch Trailer"
-      android:textColor="@android:color/white"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-      android:id="@+id/image_poster"
-      android:layout_width="0dp"
-      android:layout_height="0dp"
-      android:scaleType="fitXY"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      tools:src="@drawable/ic_dummy" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-      android:id="@+id/text_description"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginEnd="8dp"
-      android:ellipsize="end"
-      android:maxLines="1"
-      android:singleLine="true"
-      android:text="@{viewModel.description}"
-      android:textSize="16sp"
-      app:layout_constraintBottom_toBottomOf="@id/button_trailer"
-      app:layout_constraintEnd_toStartOf="@id/button_trailer"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/text_title"
-      tools:text="This is description" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-      android:id="@+id/text_title"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginEnd="8dp"
-      android:ellipsize="marquee"
-      android:singleLine="true"
-      android:text="@{viewModel.title}"
-      android:textAppearance="@style/TextAppearance.AppCompat.Large"
-      android:textSize="22sp"
-      app:fontFamily="@font/breeserif_regular"
-      app:layout_constraintEnd_toStartOf="@id/button_trailer"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/image_poster"
-      app:layout_constraintTop_toTopOf="@id/button_trailer"
-      tools:text="Spiderman" />
-
-  </androidx.constraintlayout.widget.ConstraintLayout>
-
   <data>
     <variable
       name="viewModel"
-      type="grack.dev.moviedagger.ui.nowplaying.NowPlayingViewModel" />
+      type="grack.dev.moviedagger.api.nowplaying.model.Result" />
   </data>
+
+  <com.google.android.material.card.MaterialCardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="2dp"
+    android:background="@color/colorAccent"
+    app:cardCornerRadius="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+      <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/image_poster"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:tint="#6F000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_dummy" />
+
+      <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:padding="4dp"
+        android:singleLine="true"
+        android:text="@{viewModel.title}"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#fff"
+        android:textSize="22sp"
+        app:fontFamily="@font/breeserif_regular"
+        app:layout_constraintBottom_toTopOf="@id/text_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Spiderman" />
+
+      <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:padding="4dp"
+        android:singleLine="true"
+        android:text="@{viewModel.formatted()}"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#EDEDED"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="This is descriptionThis is descriptionThis is descriptionThis is descriptionThis is descriptionThis is description" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+  </com.google.android.material.card.MaterialCardView>
+
 </layout>
