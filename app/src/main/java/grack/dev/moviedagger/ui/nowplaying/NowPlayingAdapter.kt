@@ -3,10 +3,10 @@ package grack.dev.moviedagger.ui.nowplaying
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import grack.dev.moviedagger.BR
 import grack.dev.moviedagger.data.repository.nowplaying.model.Result
 import grack.dev.moviedagger.databinding.ItemNowPlayingBinding
+import grack.dev.moviedagger.utils.Common.setImage
 
 class NowPlayingAdapter(var list: MutableList<Result>) :
   RecyclerView.Adapter<NowPlayingAdapter.CustomViewHolder>() {
@@ -34,9 +34,7 @@ class NowPlayingAdapter(var list: MutableList<Result>) :
     RecyclerView.ViewHolder(dataBinding.root) {
 
     fun bind(data: Result) {
-      Glide.with(dataBinding.root)
-        .load("http://image.tmdb.org/t/p/original/" + data.backdropPath)
-        .into(dataBinding.imagePoster)
+      setImage(dataBinding.root, data.posterPath, dataBinding.imagePoster)
 
       dataBinding.setVariable(BR.viewModel, data)
       dataBinding.executePendingBindings()

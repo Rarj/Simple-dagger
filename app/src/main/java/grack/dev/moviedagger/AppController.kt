@@ -1,6 +1,9 @@
 package grack.dev.moviedagger
 
 import android.app.Application
+import com.orhanobut.logger.AndroidLogAdapter
+import com.orhanobut.logger.Logger
+import com.orhanobut.logger.PrettyFormatStrategy
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
@@ -18,6 +21,15 @@ class AppController : Application(), HasAndroidInjector {
 
   override fun onCreate() {
     super.onCreate()
+
+    Logger.addLogAdapter(AndroidLogAdapter())
+    val formatStrategy = PrettyFormatStrategy.newBuilder()
+      .showThreadInfo(false)
+      .tag("MY_LOGGER")
+      .build()
+
+    Logger.addLogAdapter(AndroidLogAdapter(formatStrategy))
+
     DaggerApiComponents.builder()
       .application(this)
       .apiModule(ApiModule())

@@ -1,6 +1,17 @@
 package grack.dev.moviedagger.network.interceptor
 
 import android.content.Context
+import grack.dev.moviedagger.network.interceptor.ResponseCode.RESPONSE_BAD_GATEWAY
+import grack.dev.moviedagger.network.interceptor.ResponseCode.RESPONSE_BAD_REQUEST
+import grack.dev.moviedagger.network.interceptor.ResponseCode.RESPONSE_FORBIDDEN
+import grack.dev.moviedagger.network.interceptor.ResponseCode.RESPONSE_GATEWAY_TIMEOUT
+import grack.dev.moviedagger.network.interceptor.ResponseCode.RESPONSE_INTERNAL_SERVER_ERROR
+import grack.dev.moviedagger.network.interceptor.ResponseCode.RESPONSE_NOT_FOUND
+import grack.dev.moviedagger.network.interceptor.ResponseCode.RESPONSE_REQUEST_TIMEOUT
+import grack.dev.moviedagger.network.interceptor.ResponseCode.RESPONSE_SERVICE_UNAVAILABLE
+import grack.dev.moviedagger.network.interceptor.ResponseCode.RESPONSE_SUCCESS
+import grack.dev.moviedagger.network.interceptor.ResponseCode.RESPONSE_UNAUTHORIZED
+import grack.dev.moviedagger.utils.Common.log
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.io.IOException
@@ -10,6 +21,21 @@ class NetworkInterceptor(private val ctx: Context) : Interceptor {
   @Throws(IOException::class)
   override fun intercept(chain: Interceptor.Chain): Response {
     val request = chain.request()
+    val response = chain.proceed(request)
+
+    when {
+      response.code() == RESPONSE_SUCCESS -> log("success")
+      response.code() == RESPONSE_BAD_REQUEST -> log("bad request")
+      response.code() == RESPONSE_UNAUTHORIZED -> log("unauthorized")
+      response.code() == RESPONSE_FORBIDDEN -> log("forbidden")
+      response.code() == RESPONSE_NOT_FOUND -> log("not fund")
+      response.code() == RESPONSE_REQUEST_TIMEOUT -> log("request time out")
+      response.code() == RESPONSE_INTERNAL_SERVER_ERROR -> log("internal sever error")
+      response.code() == RESPONSE_BAD_GATEWAY -> log("bad gateway")
+      response.code() == RESPONSE_SERVICE_UNAVAILABLE -> log("unavailable")
+      response.code() == RESPONSE_GATEWAY_TIMEOUT -> log("gateway timeout")
+    }
+
     if (ConnectivityStatus.isConnected(ctx)) {
       request.newBuilder()
         .header("Cache-Control", "public, max-age=" + 60)
