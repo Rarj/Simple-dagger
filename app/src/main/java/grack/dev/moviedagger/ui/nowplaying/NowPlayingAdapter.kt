@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import grack.dev.moviedagger.BR
-import grack.dev.moviedagger.api.nowplaying.model.Result
+import grack.dev.moviedagger.data.repository.nowplaying.model.Result
 import grack.dev.moviedagger.databinding.ItemNowPlayingBinding
 
 class NowPlayingAdapter(var list: MutableList<Result>) :

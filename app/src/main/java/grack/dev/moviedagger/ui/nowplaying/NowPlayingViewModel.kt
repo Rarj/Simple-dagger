@@ -1,42 +1,36 @@
 package grack.dev.moviedagger.ui.nowplaying
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import grack.dev.moviedagger.api.nowplaying.NowPlayingProvider
-import grack.dev.moviedagger.api.nowplaying.model.Result
-import grack.dev.moviedagger.di.DaggerApiComponents
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
+import grack.dev.moviedagger.base.BaseViewModel
+import grack.dev.moviedagger.data.repository.nowplaying.NowPlayingRepository
+import grack.dev.moviedagger.data.repository.nowplaying.model.Result
+import grack.dev.moviedagger.data.repository.nowplaying.MovieService
 import javax.inject.Inject
 
-class NowPlayingViewModel : ViewModel() {
+class NowPlayingViewModel @Inject constructor(
+  movieApiService: MovieService
+) : BaseViewModel() {
 
-  @Inject
-  lateinit var nowPlayingService: NowPlayingProvider
-
-  private val disposable = CompositeDisposable()
-
-  val nowPlayingList = MutableLiveData<List<Result>>()
+  private val repository = NowPlayingRepository(movieApiService)
+  private val movie = MutableLiveData<List<Result>>()
 
   init {
-    DaggerApiComponents.create().inject(this)
-    loadNowPlaying()
+    loadMovies()
   }
 
-  private fun loadNowPlaying() {
-    disposable.add(
-      nowPlayingService.getCountries()
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
+  private fun loadMovies() {
+    addToDisposable(
+      repository.loadMoviesByType("now_playing")
         .subscribe {
-          nowPlayingList.value = it.results
+          getMoviesLiveData().postValue(it.results)
         })
   }
 
+  fun getMoviesLiveData() = movie
+
   override fun onCleared() {
     super.onCleared()
-    disposable.clear()
+    clearDisposable()
   }
 
 }

@@ -6,14 +6,13 @@
   <data>
     <variable
       name="viewModel"
-      type="grack.dev.moviedagger.api.nowplaying.model.Result" />
+      type="grack.dev.moviedagger.data.repository.nowplaying.model.Result" />
   </data>
 
   <com.google.android.material.card.MaterialCardView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="2dp"
-    android:background="@color/colorAccent"
     app:cardCornerRadius="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout

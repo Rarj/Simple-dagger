@@ -1,4 +1,4 @@
-package grack.dev.moviedagger.api.nowplaying.model
+package grack.dev.moviedagger.data.repository.nowplaying.model
 
 
 import com.google.gson.annotations.SerializedName
