@@ -2,8 +2,6 @@ package grack.dev.moviedagger.data.repository.nowplaying.model
 
 
 import com.google.gson.annotations.SerializedName
-import java.text.SimpleDateFormat
-import java.util.*
 
 data class Result(
   @SerializedName("adult")
@@ -31,15 +29,7 @@ data class Result(
   @SerializedName("video")
   var video: Boolean?,
   @SerializedName("vote_average")
-  var voteAverage: Double?,
+  var voteAverage: Float?,
   @SerializedName("vote_count")
   var voteCount: Int?
-) {
-
-  fun formatted(): String {
-    val pattern = SimpleDateFormat("yyyy-MM-dd")
-    val date: Date? = pattern.parse(releaseDate.toString())
-
-    return SimpleDateFormat("EEEE, dd MMMM yyyy").format(date)
-  }
-}
+)

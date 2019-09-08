@@ -1,15 +1,23 @@
 package grack.dev.moviedagger.ui.nowplaying
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.jakewharton.rxbinding3.view.clicks
+import grack.dev.moviedagger.AppConstant.DURATION_THROTTLE
 import grack.dev.moviedagger.BR
 import grack.dev.moviedagger.data.repository.nowplaying.model.Result
 import grack.dev.moviedagger.databinding.ItemNowPlayingBinding
-import grack.dev.moviedagger.utils.Common.setImage
+import grack.dev.moviedagger.utils.ClickListener
+import java.util.concurrent.TimeUnit
 
-class NowPlayingAdapter(var list: MutableList<Result>) :
+class NowPlayingAdapter(
+  var list: MutableList<Result>,
+  var listener: ClickListener<Result>
+) :
   RecyclerView.Adapter<NowPlayingAdapter.CustomViewHolder>() {
+
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
     val inflater = LayoutInflater.from(parent.context)
     val dataBinding = ItemNowPlayingBinding.inflate(inflater, parent, false)
@@ -21,7 +29,7 @@ class NowPlayingAdapter(var list: MutableList<Result>) :
   }
 
   override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
-    holder.bind(list[position])
+    holder.bind(list[position], listener)
   }
 
   fun updateCountries(newList: List<Result>) {
@@ -33,8 +41,14 @@ class NowPlayingAdapter(var list: MutableList<Result>) :
   class CustomViewHolder(private val dataBinding: ItemNowPlayingBinding) :
     RecyclerView.ViewHolder(dataBinding.root) {
 
-    fun bind(data: Result) {
-      setImage(dataBinding.root, data.posterPath, dataBinding.imagePoster)
+    @SuppressLint("CheckResult")
+    fun bind(data: Result, listener: ClickListener<Result>) {
+
+      dataBinding.root.clicks()
+        .throttleFirst(DURATION_THROTTLE, TimeUnit.MILLISECONDS)
+        .subscribe {
+          listener.onItemClick(data)
+        }
 
       dataBinding.setVariable(BR.viewModel, data)
       dataBinding.executePendingBindings()

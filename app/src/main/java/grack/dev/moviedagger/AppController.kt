@@ -1,6 +1,7 @@
 package grack.dev.moviedagger
 
 import android.app.Application
+import android.os.StrictMode
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import com.orhanobut.logger.PrettyFormatStrategy

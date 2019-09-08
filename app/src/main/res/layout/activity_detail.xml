@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+    <variable
+        name="viewModel"
+        type="grack.dev.moviedagger.ui.detail.DetailViewModel" />
+  </data>
+
+  <androidx.coordinatorlayout.widget.CoordinatorLayout
+      android:id="@+id/container_bottom"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:behavior_hideable="true"
+      app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+      tools:context=".ui.detail.DetailActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+      <androidx.appcompat.widget.AppCompatImageView
+          android:id="@+id/image_blur"
+          android:layout_width="0dp"
+          android:layout_height="0dp"
+          android:blur="@{viewModel.result.posterPath}"
+          android:scaleType="fitXY"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          tools:src="@drawable/pikachu_blur" />
+
+      <androidx.appcompat.widget.AppCompatImageView
+          android:id="@+id/button_back"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_margin="16dp"
+          android:src="@drawable/ic_arrow_back"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent" />
+
+      <androidx.appcompat.widget.AppCompatTextView
+          android:id="@+id/text_title"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="16dp"
+          android:layout_marginEnd="16dp"
+          android:singleLine="true"
+          android:text="@{viewModel.result.title}"
+          android:textAlignment="center"
+          android:textColor="#fff"
+          android:textSize="24sp"
+          app:fontFamily="@font/breeserif_regular"
+          app:layout_constraintBottom_toBottomOf="@id/button_back"
+          app:layout_constraintEnd_toStartOf="@id/button_favorite"
+          app:layout_constraintStart_toEndOf="@id/button_back"
+          app:layout_constraintTop_toTopOf="@id/button_back"
+          tools:text="Pikachu" />
+
+      <androidx.appcompat.widget.AppCompatImageView
+          android:id="@+id/button_favorite"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_margin="16dp"
+          android:src="@drawable/ic_favorite_border"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toTopOf="parent" />
+
+      <com.google.android.material.card.MaterialCardView
+          android:layout_width="0dp"
+          android:layout_height="0dp"
+          android:layout_marginStart="30dp"
+          android:layout_marginTop="30dp"
+          android:layout_marginEnd="30dp"
+          android:layout_marginBottom="30dp"
+          android:padding="16dp"
+          app:cardCornerRadius="10dp"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/text_title">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+          <androidx.constraintlayout.widget.ConstraintLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/image_backdrop"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:scaleType="fitXY"
+                android:url="@{viewModel.result.backdropPath}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/pikachu" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/container_poster"
+                android:layout_width="170dp"
+                android:layout_height="240dp"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintBottom_toBottomOf="@id/image_backdrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/image_backdrop">
+
+              <androidx.appcompat.widget.AppCompatImageView
+                  android:id="@+id/image_poster"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:scaleType="fitXY"
+                  android:url="@{viewModel.result.posterPath}"
+                  tools:src="@drawable/pikachu" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <RatingBar
+                android:id="@+id/rating_bar"
+                style="?android:attr/ratingBarStyleIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:numStars="5"
+                android:rate="@{viewModel.result.voteAverage}"
+                android:stepSize="0.1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/container_poster"
+                tools:rating="4.7" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/text_release_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:date="@{viewModel.result.releaseDate}"
+                android:singleLine="true"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="22sp"
+                app:fontFamily="@font/breeserif_regular"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rating_bar"
+                tools:text="Monday, 01 January 2019" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="50dp"
+                android:background="#D8D8D8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_release_date" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/text_overview_caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:padding="8dp"
+                android:text="Overview"
+                android:textAllCaps="true"
+                app:layout_constraintBottom_toBottomOf="@id/divider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/divider" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/text_overview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@{viewModel.result.overview}"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_overview_caption"
+                tools:text="Overview Content" />
+
+          </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+      </com.google.android.material.card.MaterialCardView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+  </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>
