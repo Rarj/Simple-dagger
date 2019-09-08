@@ -1,1 +1,9 @@
-# Simple-crud
+# UPDATE !
+
+### MVVM & LIFECYCLE
+### DAGGER 2
+### RX
+### RETROFIT 2
+### GSON
+### OKHTTP 3
+### GLIDE
