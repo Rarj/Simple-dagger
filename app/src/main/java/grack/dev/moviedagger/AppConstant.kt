@@ -2,8 +2,9 @@ package grack.dev.moviedagger
 
 object AppConstant {
 
-  const val BASE_URL = "https://api.themoviedb.org/3/movie/"
-  const val BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500/"
   const val DURATION_THROTTLE: Long = 500
 
+  const val INTENT_KEY = "intent_key"
+
+  const val NOW_PLAYING = "now_playing"
 }

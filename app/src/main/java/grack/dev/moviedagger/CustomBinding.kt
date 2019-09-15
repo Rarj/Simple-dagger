@@ -1,5 +1,6 @@
 package grack.dev.moviedagger
 
+import android.annotation.SuppressLint
 import android.os.StrictMode
 import android.widget.ImageView
 import android.widget.RatingBar
@@ -35,9 +36,10 @@ object CustomBinding {
     Blurry.with(view.context).from(getBitmap(url)).into(view)
   }
 
+  @SuppressLint("SimpleDateFormat")
   @BindingAdapter(("android:date"))
   @JvmStatic
-  fun getSimpleDate(view: TextView, releaseDate: String) {
+  fun setSimpleDate(view: TextView, releaseDate: String) {
     val pattern = SimpleDateFormat("yyyy-MM-dd")
     val date: Date? = pattern.parse(releaseDate)
     view.text = SimpleDateFormat("EEEE, dd MMMM yyyy").format(date)

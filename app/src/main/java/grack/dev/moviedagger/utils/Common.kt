@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.orhanobut.logger.Logger
-import grack.dev.moviedagger.AppConstant.BASE_IMAGE_URL
+import grack.dev.moviedagger.BuildConfig.BASE_URL_IMAGE
 import java.net.URL
 
 object Common {
@@ -18,12 +18,12 @@ object Common {
   fun setImage(context: View, url: String?, imageView: ImageView) {
     Glide.with(context)
       .asBitmap()
-      .load(BASE_IMAGE_URL + url)
+      .load(BASE_URL_IMAGE + url)
       .into(imageView)
   }
 
   fun getBitmap(urlPath: String): Bitmap {
-    val url = URL(BASE_IMAGE_URL + urlPath)
+    val url = URL(BASE_URL_IMAGE + urlPath)
     return BitmapFactory.decodeStream(url.openConnection().getInputStream())
   }
 

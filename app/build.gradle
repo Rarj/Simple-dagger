@@ -18,6 +18,19 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            buildConfigField 'String', "API_KEY", API_KEY
+            resValue 'string', "api_key", API_KEY
+
+            buildConfigField 'String', "API_KEY_YOUTUBE", API_KEY_YOUTUBE
+            resValue 'string', "api_key_youtube", API_KEY_YOUTUBE
+
+            buildConfigField 'String', "BASE_URL", BASE_URL
+            resValue 'string', "base_url", BASE_URL
+
+            buildConfigField 'String', "BASE_URL_IMAGE", BASE_URL_IMAGE
+            resValue 'string', "base_url_image", BASE_URL_IMAGE
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -28,8 +41,8 @@ android {
     }
 }
 
-def lifeCycleExtensionsVersion = '2.0.0'
-def appCompatVersion = '1.0.2'
+def lifeCycleExtensionsVersion = '2.1.0'
+def appCompatVersion = '1.1.0'
 def materialVersion = '1.0.0'
 def retrofitVersion = '2.3.0'
 def daggerVersion = '2.24'
@@ -53,7 +66,7 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
 
     implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
-    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
     testImplementation "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
 
     implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
@@ -78,9 +91,11 @@ dependencies {
 
     implementation 'jp.wasabeef:blurry:3.0.0'
 
+    implementation files('libs/YouTubeAndroidPlayerApi.jar')
+
     testImplementation 'junit:junit:4.12'
     testImplementation "org.mockito:mockito-inline:$mockitoVersion"
-    testImplementation 'androidx.arch.core:core-testing:2.0.1'
+    testImplementation 'androidx.arch.core:core-testing:2.1.0'
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

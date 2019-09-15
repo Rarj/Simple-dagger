@@ -25,7 +25,7 @@
           android:layout_height="200dp"
           android:adjustViewBounds="true"
           android:scaleType="fitXY"
-          android:tint="#6F000000"
+          android:tint="@color/black_6F000000"
           android:url="@{viewModel.posterPath}"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
@@ -41,14 +41,12 @@
           android:layout_marginEnd="8dp"
           android:singleLine="true"
           android:text="@{viewModel.title}"
-          android:textAppearance="@style/TextAppearance.AppCompat.Large"
-          android:textColor="#fff"
-          android:textSize="22sp"
-          app:fontFamily="@font/breeserif_regular"
+          android:textAppearance="@style/H6"
+          android:textColor="@color/white_FFFFFF"
           app:layout_constraintBottom_toTopOf="@id/text_description"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          tools:text="Pikachu" />
+          tools:text="@string/movie_name" />
 
       <androidx.appcompat.widget.AppCompatTextView
           android:id="@+id/text_description"
@@ -61,15 +59,13 @@
           android:ellipsize="end"
           android:maxLines="1"
           android:singleLine="true"
-          android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-          android:textColor="#EDEDED"
-          android:textSize="14sp"
-          app:fontFamily="@font/breeserif_regular"
+          android:textAppearance="@style/Subtitle1"
+          android:textColor="@color/white_FFFFFF"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintHorizontal_bias="0.0"
           app:layout_constraintStart_toStartOf="parent"
-          tools:text="Monday, 01 January 2019" />
+          tools:text="@string/movie_release_date" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
   </com.google.android.material.card.MaterialCardView>

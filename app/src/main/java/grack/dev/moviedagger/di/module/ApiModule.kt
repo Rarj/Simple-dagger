@@ -5,8 +5,9 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
-import grack.dev.moviedagger.AppConstant.BASE_URL
+import grack.dev.moviedagger.BuildConfig.BASE_URL
 import grack.dev.moviedagger.data.repository.nowplaying.MovieService
+import grack.dev.moviedagger.data.repository.trailer.TrailerService
 import grack.dev.moviedagger.network.interceptor.NetworkInterceptor
 import grack.dev.moviedagger.network.interceptor.RequestInterceptor
 import okhttp3.Cache
@@ -78,6 +79,12 @@ class ApiModule {
   @Singleton
   internal fun provideMovieService(retrofit: Retrofit): MovieService {
     return retrofit.create(MovieService::class.java)
+  }
+
+  @Provides
+  @Singleton
+  internal fun provideTrailerService(retrofit: Retrofit): TrailerService {
+    return retrofit.create(TrailerService::class.java)
   }
 
 }

@@ -1,6 +1,13 @@
 package grack.dev.moviedagger.network.interceptor
 
 import android.content.Context
+import grack.dev.moviedagger.network.interceptor.ResponseCode.BAD_GATEWAY
+import grack.dev.moviedagger.network.interceptor.ResponseCode.BAD_REQUEST
+import grack.dev.moviedagger.network.interceptor.ResponseCode.FORBIDDEN
+import grack.dev.moviedagger.network.interceptor.ResponseCode.GATEWAY_TIMEOUT
+import grack.dev.moviedagger.network.interceptor.ResponseCode.INTERNAL_SERVER_ERROR
+import grack.dev.moviedagger.network.interceptor.ResponseCode.NOT_FOUND
+import grack.dev.moviedagger.network.interceptor.ResponseCode.REQUEST_TIMEOUT
 import grack.dev.moviedagger.network.interceptor.ResponseCode.RESPONSE_BAD_GATEWAY
 import grack.dev.moviedagger.network.interceptor.ResponseCode.RESPONSE_BAD_REQUEST
 import grack.dev.moviedagger.network.interceptor.ResponseCode.RESPONSE_FORBIDDEN
@@ -11,6 +18,9 @@ import grack.dev.moviedagger.network.interceptor.ResponseCode.RESPONSE_REQUEST_T
 import grack.dev.moviedagger.network.interceptor.ResponseCode.RESPONSE_SERVICE_UNAVAILABLE
 import grack.dev.moviedagger.network.interceptor.ResponseCode.RESPONSE_SUCCESS
 import grack.dev.moviedagger.network.interceptor.ResponseCode.RESPONSE_UNAUTHORIZED
+import grack.dev.moviedagger.network.interceptor.ResponseCode.SERVICE_UNAVAILABLE
+import grack.dev.moviedagger.network.interceptor.ResponseCode.SUCCESS
+import grack.dev.moviedagger.network.interceptor.ResponseCode.UNAUTHORIZED
 import grack.dev.moviedagger.utils.Common.log
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -24,16 +34,16 @@ class NetworkInterceptor(private val ctx: Context) : Interceptor {
     val response = chain.proceed(request)
 
     when {
-      response.code() == RESPONSE_SUCCESS -> log("success")
-      response.code() == RESPONSE_BAD_REQUEST -> log("bad request")
-      response.code() == RESPONSE_UNAUTHORIZED -> log("unauthorized")
-      response.code() == RESPONSE_FORBIDDEN -> log("forbidden")
-      response.code() == RESPONSE_NOT_FOUND -> log("not fund")
-      response.code() == RESPONSE_REQUEST_TIMEOUT -> log("request time out")
-      response.code() == RESPONSE_INTERNAL_SERVER_ERROR -> log("internal sever error")
-      response.code() == RESPONSE_BAD_GATEWAY -> log("bad gateway")
-      response.code() == RESPONSE_SERVICE_UNAVAILABLE -> log("unavailable")
-      response.code() == RESPONSE_GATEWAY_TIMEOUT -> log("gateway timeout")
+      response.code() == RESPONSE_SUCCESS -> log(SUCCESS)
+      response.code() == RESPONSE_BAD_REQUEST -> log(BAD_REQUEST)
+      response.code() == RESPONSE_UNAUTHORIZED -> log(UNAUTHORIZED)
+      response.code() == RESPONSE_FORBIDDEN -> log(FORBIDDEN)
+      response.code() == RESPONSE_NOT_FOUND -> log(NOT_FOUND)
+      response.code() == RESPONSE_REQUEST_TIMEOUT -> log(REQUEST_TIMEOUT)
+      response.code() == RESPONSE_INTERNAL_SERVER_ERROR -> log(INTERNAL_SERVER_ERROR)
+      response.code() == RESPONSE_BAD_GATEWAY -> log(BAD_GATEWAY)
+      response.code() == RESPONSE_SERVICE_UNAVAILABLE -> log(SERVICE_UNAVAILABLE)
+      response.code() == RESPONSE_GATEWAY_TIMEOUT -> log(GATEWAY_TIMEOUT)
     }
 
     if (ConnectivityStatus.isConnected(ctx)) {

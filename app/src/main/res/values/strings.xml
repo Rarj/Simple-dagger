@@ -1,3 +1,11 @@
 <resources>
-  <string name="app_name">MovieDagger</string>
+  <string name="app_name">Movie Info</string>
+
+  <!--  DUMMY TEXT-->
+  <string name="movie_name">Pikachu</string>
+  <string name="movie_release_date">Monday, 01 January 2019</string>
+  <string name="movie_overview">Overview Content</string>
+
+  <!--  Detail Activity-->
+  <string name="detail_overview_caption">Overview</string>
 </resources>

@@ -1,5 +1,6 @@
 package grack.dev.moviedagger.ui.nowplaying
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -9,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.gson.Gson
 import dagger.android.AndroidInjection
+import grack.dev.moviedagger.AppConstant.INTENT_KEY
 import grack.dev.moviedagger.R
 import grack.dev.moviedagger.data.repository.nowplaying.model.Result
 import grack.dev.moviedagger.databinding.ActivityNowPlayingBinding
@@ -36,11 +38,7 @@ class NowPlayingActivity : AppCompatActivity() {
 
     nowPlayingAdapter = NowPlayingAdapter(arrayListOf(), object : ClickListener<Result> {
       override fun onItemClick(t: Result) {
-        val bundle = Bundle()
-        bundle.putString("detail", Gson().toJson(t))
-        val detailActivity = DetailActivity()
-        detailActivity.arguments = bundle
-        detailActivity.show(supportFragmentManager, detailActivity.tag)
+        passData(t)
       }
     })
 
@@ -52,4 +50,13 @@ class NowPlayingActivity : AppCompatActivity() {
       nowPlayingAdapter.notifyDataSetChanged()
     })
   }
+
+  private fun passData(data: Result) {
+    val bundle = Bundle()
+    bundle.putString(INTENT_KEY, Gson().toJson(data))
+    val detailActivity = DetailActivity()
+    detailActivity.arguments = bundle
+    detailActivity.show(supportFragmentManager, detailActivity.tag)
+  }
+
 }
