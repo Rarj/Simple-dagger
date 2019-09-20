@@ -7,7 +7,7 @@ import retrofit2.http.Path
 
 interface MovieService {
 
-  @GET("{type}?language=en-US&region=US")
+  @GET("{type}?language=id-ID")
   fun fetchMoviesByType(
     @Path("type") type: String
   ): Observable<Response>

@@ -7,8 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.Gson
 import dagger.android.support.AndroidSupportInjection
@@ -16,7 +19,8 @@ import grack.dev.moviedagger.AppConstant.INTENT_KEY
 import grack.dev.moviedagger.R
 import grack.dev.moviedagger.data.repository.nowplaying.model.Result
 import grack.dev.moviedagger.databinding.ActivityDetailBinding
-import grack.dev.moviedagger.ui.trailer.TrailerActivity
+import grack.dev.moviedagger.ui.detail.adapter.CasterAdapter
+import grack.dev.moviedagger.ui.detail.trailer.TrailerActivity
 import javax.inject.Inject
 
 class DetailActivity : BottomSheetDialogFragment() {
@@ -27,6 +31,7 @@ class DetailActivity : BottomSheetDialogFragment() {
   private lateinit var binding: ActivityDetailBinding
   private lateinit var viewModel: DetailViewModel
   private lateinit var data: Result
+  private lateinit var adapterCaster: CasterAdapter
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -57,7 +62,18 @@ class DetailActivity : BottomSheetDialogFragment() {
       viewModel.result.value = data
     }
 
+    adapterCaster = CasterAdapter(arrayListOf())
+    binding.recyclerCast.layoutManager =
+      LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+    binding.recyclerCast.adapter = adapterCaster
+
     viewModel.loadTrailer(viewModel.result.value?.id)
+    viewModel.loadCast(viewModel.result.value?.id)
+
+    viewModel.itemCast.observe(this, Observer { caster ->
+      adapterCaster.populateCasts(caster.cast)
+      adapterCaster.notifyDataSetChanged()
+    })
 
     listener()
   }

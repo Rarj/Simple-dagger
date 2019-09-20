@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+    <variable
+        name="viewModel"
+        type="grack.dev.moviedagger.data.repository.trailer.model.cast.Cast" />
+  </data>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="70dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="4dp"
+      android:layout_marginEnd="4dp">
+
+    <grack.dev.moviedagger.utils.CircleImageView
+        android:id="@+id/image_cast"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_margin="2dp"
+        android:urlCircle="@{viewModel.profilePath}"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0"
+        tools:src="@drawable/pikachu" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_person_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:text="@{viewModel.name}"
+        app:fontFamily="@font/montserrat_light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image_cast"
+        tools:text="@string/movie_person_name" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

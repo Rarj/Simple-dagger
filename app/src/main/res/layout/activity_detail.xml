@@ -39,7 +39,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_margin="16dp"
-          android:src="@drawable/ic_arrow_back"
+          android:src="@drawable/ic_close"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent" />
 
@@ -217,6 +217,46 @@
                 app:layout_constraintTop_toBottomOf="@id/text_overview_caption"
                 app:layout_constraintVertical_bias="0"
                 tools:text="@string/movie_overview" />
+
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/dove_gray_636363"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_overview" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/text_caption_cast"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="@string/detail_cast_caption"
+                android:textColor="@color/black_000000"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider2" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_cast"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_caption_cast"
+                app:layout_constraintVertical_bias="0"
+                tools:listitem="@layout/item_cast" />
 
           </androidx.constraintlayout.widget.ConstraintLayout>
 

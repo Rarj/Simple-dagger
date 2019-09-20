@@ -6,8 +6,10 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import grack.dev.moviedagger.utils.CircleImageView
 import grack.dev.moviedagger.utils.Common.getBitmap
 import grack.dev.moviedagger.utils.Common.setImage
+import grack.dev.moviedagger.utils.Common.setImageCircle
 import jp.wasabeef.blurry.Blurry
 import java.text.SimpleDateFormat
 import java.util.*
@@ -26,6 +28,12 @@ object CustomBinding {
   @JvmStatic
   fun setUrlImage(view: ImageView, url: String) {
     setImage(view, url, view)
+  }
+
+  @BindingAdapter(("android:urlCircle"))
+  @JvmStatic
+  fun setUrlImageCircle(view: CircleImageView, url: String?) {
+    setImageCircle(view, url, view)
   }
 
   @BindingAdapter(("android:blur"))

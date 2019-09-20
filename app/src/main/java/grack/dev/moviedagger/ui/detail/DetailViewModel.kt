@@ -5,7 +5,8 @@ import grack.dev.moviedagger.base.BaseViewModel
 import grack.dev.moviedagger.data.repository.nowplaying.model.Result
 import grack.dev.moviedagger.data.repository.trailer.TrailerRepository
 import grack.dev.moviedagger.data.repository.trailer.TrailerService
-import grack.dev.moviedagger.data.repository.trailer.model.ItemResponse
+import grack.dev.moviedagger.data.repository.trailer.model.cast.Response
+import grack.dev.moviedagger.data.repository.trailer.model.trailer.ItemResponse
 import javax.inject.Inject
 
 class DetailViewModel @Inject constructor(
@@ -16,12 +17,22 @@ class DetailViewModel @Inject constructor(
 
   var repository = TrailerRepository(trailerService)
   var itemTrailer = MutableLiveData<List<ItemResponse>>()
+  var itemCast = MutableLiveData<Response>()
 
   fun loadTrailer(movie_id: Int?) {
     addToDisposable(
       repository.loadTrailer(movie_id)
         .subscribe { response ->
           itemTrailer.postValue(response.results)
+        }
+    )
+  }
+
+  fun loadCast(movie_id: Int?) {
+    addToDisposable(
+      repository.loadCast(movie_id)
+        .subscribe { response ->
+          itemCast.postValue(response)
         }
     )
   }

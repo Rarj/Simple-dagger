@@ -1,4 +1,4 @@
-package grack.dev.moviedagger.data.repository.trailer.model
+package grack.dev.moviedagger.data.repository.trailer.model.trailer
 
 
 import com.google.gson.annotations.SerializedName

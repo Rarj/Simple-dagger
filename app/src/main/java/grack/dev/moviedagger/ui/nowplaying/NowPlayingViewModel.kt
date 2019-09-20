@@ -1,5 +1,6 @@
 package grack.dev.moviedagger.ui.nowplaying
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import grack.dev.moviedagger.AppConstant.NOW_PLAYING
 import grack.dev.moviedagger.base.BaseViewModel
@@ -22,9 +23,12 @@ class NowPlayingViewModel @Inject constructor(
   private fun loadMovies() {
     addToDisposable(
       repository.loadMoviesByType(NOW_PLAYING)
-        .subscribe { list ->
+        .subscribe({ list ->
           getMoviesLiveData().postValue(list.results)
+        }, {
+          Log.e("KKKKKKKKKKKKKKK", it.message)
         })
+    )
   }
 
   fun getMoviesLiveData() = movie

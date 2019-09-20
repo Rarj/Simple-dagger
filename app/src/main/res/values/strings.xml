@@ -5,7 +5,10 @@
   <string name="movie_name">Pikachu</string>
   <string name="movie_release_date">Monday, 01 January 2019</string>
   <string name="movie_overview">Overview Content</string>
+  <string name="movie_person_name">Dwayne Johnson</string>
 
   <!--  Detail Activity-->
   <string name="detail_overview_caption">Overview</string>
+  <string name="detail_cast_caption">Cast</string>
+
 </resources>
