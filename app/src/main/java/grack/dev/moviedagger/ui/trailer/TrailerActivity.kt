@@ -1,4 +1,4 @@
-package grack.dev.moviedagger.ui.detail.trailer
+package grack.dev.moviedagger.ui.trailer
 
 import android.os.Bundle
 import com.google.android.youtube.player.YouTubeBaseActivity

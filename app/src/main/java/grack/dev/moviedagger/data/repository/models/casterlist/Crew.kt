@@ -1,4 +1,4 @@
-package grack.dev.moviedagger.data.repository.trailer.model.cast
+package grack.dev.moviedagger.data.repository.models.casterlist
 
 
 import com.google.gson.annotations.SerializedName

@@ -12,13 +12,42 @@
   <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
       tools:context=".ui.nowplaying.NowPlayingActivity">
+
+    <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/loading_animation"
+      android:layout_width="100dp"
+      android:layout_height="100dp"
+      app:layout_constraintBottom_toTopOf="@id/text_caption_loading"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_chainStyle="packed"
+      app:lottie_autoPlay="true"
+      app:lottie_fileName="loading_animation.json"
+      app:lottie_loop="true" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+      android:id="@+id/text_caption_loading"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:text="@string/now_playing_loading_caption"
+      android:textAlignment="center"
+      android:textSize="24sp"
+      app:fontFamily="@font/montserrat_light"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/loading_animation"
+      app:layout_constraintVertical_chainStyle="packed" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_now_playing"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:overScrollMode="never"
+      android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

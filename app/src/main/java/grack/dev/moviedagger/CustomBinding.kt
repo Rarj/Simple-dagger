@@ -2,9 +2,9 @@ package grack.dev.moviedagger
 
 import android.annotation.SuppressLint
 import android.os.StrictMode
-import android.widget.ImageView
 import android.widget.RatingBar
-import android.widget.TextView
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.databinding.BindingAdapter
 import grack.dev.moviedagger.utils.CircleImageView
 import grack.dev.moviedagger.utils.Common.getBitmap
@@ -26,7 +26,7 @@ object CustomBinding {
 
   @BindingAdapter(("android:url"))
   @JvmStatic
-  fun setUrlImage(view: ImageView, url: String) {
+  fun setUrlImage(view: AppCompatImageView, url: String) {
     setImage(view, url, view)
   }
 
@@ -38,19 +38,29 @@ object CustomBinding {
 
   @BindingAdapter(("android:blur"))
   @JvmStatic
-  fun setImageBlur(view: ImageView, url: String) {
+  fun setImageBlur(view: AppCompatImageView, url: String) {
     val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
     StrictMode.setThreadPolicy(policy)
-    Blurry.with(view.context).from(getBitmap(url)).into(view)
+    Blurry.with(view.context).from(getBitmap(view, url)).into(view)
   }
 
   @SuppressLint("SimpleDateFormat")
   @BindingAdapter(("android:date"))
   @JvmStatic
-  fun setSimpleDate(view: TextView, releaseDate: String) {
+  fun setSimpleDate(view: AppCompatTextView, releaseDate: String) {
     val pattern = SimpleDateFormat("yyyy-MM-dd")
     val date: Date? = pattern.parse(releaseDate)
     view.text = SimpleDateFormat("EEEE, dd MMMM yyyy").format(date)
+  }
+
+  @BindingAdapter(("android:overview"))
+  @JvmStatic
+  fun setOverview(view: AppCompatTextView, overview: String) {
+    if (overview.isNullOrEmpty()) {
+      view.text = view.resources.getString(R.string.detail_no_description_caption)
+    } else {
+      view.text = overview
+    }
   }
 
 }

@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+    <variable
+      name="viewModel"
+      type="grack.dev.moviedagger.ui.caster.CasterViewModel" />
+  </data>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+      android:id="@+id/toolbar"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:background="?attr/colorPrimary"
+      android:minHeight="?attr/actionBarSize"
+      android:theme="?attr/actionBarTheme"
+      app:contentInsetStart="0dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent">
+
+      <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/button_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_arrow_left" />
+
+      <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@{viewModel.result.name}"
+        android:textAppearance="@style/H6"
+        android:textColor="@color/white_FFFFFF"
+        tools:text="@string/movie_person_name" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.core.widget.NestedScrollView
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:background="@color/white_FFFFFF"
+      app:layout_behavior="@string/appbar_scrolling_view_behavior"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/toolbar"
+      tools:context=".ui.caster.CasterActivity">
+
+      <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+          android:id="@+id/view_background"
+          android:layout_width="0dp"
+          android:layout_height="156dp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          tools:background="@color/colorPrimary" />
+
+        <grack.dev.moviedagger.utils.CircleImageView
+          android:id="@+id/image_person"
+          android:layout_width="100dp"
+          android:layout_height="100dp"
+          android:urlCircle="@{viewModel.result.profilePath}"
+          app:civ_border_color="#FFFFFF"
+          app:civ_border_width="4dp"
+          app:layout_constraintBottom_toBottomOf="@id/view_background"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/view_background"
+          tools:src="@drawable/pikachu" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+          android:id="@+id/text_gender"
+          android:layout_width="0dp"
+          android:layout_height="32dp"
+          android:layout_marginTop="8dp"
+          android:layout_marginStart="8dp"
+          android:layout_marginEnd="8dp"
+          android:drawablePadding="8dp"
+          android:drawableStart="@drawable/ic_boy"
+          android:gravity="center"
+          android:text="@{`` + viewModel.result.gender}"
+          android:textAlignment="textStart"
+          android:textAppearance="@style/Body1"
+          app:layout_constraintEnd_toStartOf="@id/image_person"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/view_background"
+          tools:ignore="RtlCompat"
+          tools:text="Female" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+          android:id="@+id/button_imdb"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="8dp"
+          android:src="@drawable/ic_imdb"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@id/button_homepage"
+          app:layout_constraintTop_toBottomOf="@id/view_background" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+          android:id="@+id/button_homepage"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="8dp"
+          android:layout_marginEnd="16dp"
+          android:src="@drawable/ic_homepage"
+          app:layout_constraintEnd_toStartOf="@id/button_imdb"
+          app:layout_constraintStart_toEndOf="@id/image_person"
+          app:layout_constraintTop_toBottomOf="@id/view_background" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+          android:id="@+id/text_person_name"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="16dp"
+          android:layout_marginStart="16dp"
+          android:layout_marginEnd="16dp"
+          android:text="@{viewModel.result.name}"
+          android:textAlignment="center"
+          android:textAppearance="@style/H6"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/image_person"
+          tools:text="@string/movie_person_name" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+          android:id="@+id/text_birthday"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
+          android:layout_marginStart="16dp"
+          android:layout_marginEnd="16dp"
+          android:textAlignment="center"
+          android:textAppearance="@style/Body1"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/text_person_name"
+          tools:text="@string/movie_release_date" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+          android:id="@+id/text_place_of_birth"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="16dp"
+          android:layout_marginEnd="16dp"
+          android:text="@{viewModel.result.placeOfBirth}"
+          android:textAlignment="center"
+          android:textAppearance="@style/Body1"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/text_birthday"
+          tools:text="California, USA" />
+
+        <View
+          android:id="@+id/divider"
+          android:layout_width="0dp"
+          android:layout_height="1dp"
+          android:layout_marginTop="50dp"
+          android:layout_marginStart="16dp"
+          android:layout_marginEnd="16dp"
+          android:background="@color/dove_gray_636363"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/text_place_of_birth" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+          android:id="@+id/text_also_known_as_caption"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:padding="8dp"
+          android:background="@android:color/white"
+          android:text="Also known as"
+          android:textAppearance="@style/Subtitle1"
+          android:textColor="@color/dove_gray_636363"
+          app:layout_constraintBottom_toBottomOf="@id/divider"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="@id/divider"
+          app:textAllCaps="true" />
+
+        <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/recycler_known_as"
+          android:layout_width="0dp"
+          android:layout_height="100dp"
+          android:layout_marginTop="8dp"
+          android:layout_marginStart="16dp"
+          android:layout_marginEnd="16dp"
+          android:overScrollMode="never"
+          app:layout_constraintBottom_toTopOf="@id/text_biography_caption"
+          app:layout_constraintLeft_toLeftOf="parent"
+          app:layout_constraintRight_toRightOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/text_also_known_as_caption"
+          app:layout_constraintVertical_bias="0"
+          tools:listitem="@layout/item_knows_as" />
+
+        <View
+          android:id="@+id/divider2"
+          android:layout_width="0dp"
+          android:layout_height="1dp"
+          android:layout_marginTop="30dp"
+          android:layout_marginStart="16dp"
+          android:layout_marginEnd="16dp"
+          android:background="@color/dove_gray_636363"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/recycler_known_as" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+          android:id="@+id/text_biography_caption"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:padding="8dp"
+          android:background="@android:color/white"
+          android:text="Biography"
+          android:textAppearance="@style/Subtitle1"
+          android:textColor="@color/dove_gray_636363"
+          app:layout_constraintBottom_toBottomOf="@id/divider2"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="@id/divider2"
+          app:textAllCaps="true" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+          android:id="@+id/text_biography"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
+          android:layout_marginBottom="16dp"
+          android:layout_marginStart="16dp"
+          android:layout_marginEnd="16dp"
+          android:text="@{viewModel.result.biography}"
+          android:textAlignment="center"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/text_biography_caption"
+          tools:text="@string/movie_biography" />
+
+      </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

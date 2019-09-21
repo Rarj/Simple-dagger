@@ -1,4 +1,4 @@
-package grack.dev.moviedagger.data.repository.trailer.model.cast
+package grack.dev.moviedagger.data.repository.models.casterlist
 
 
 import com.google.gson.annotations.SerializedName
@@ -13,7 +13,7 @@ data class Cast(
   @SerializedName("gender")
   var gender: Int?,
   @SerializedName("id")
-  var id: Int?,
+  var id: Int,
   @SerializedName("name")
   var name: String?,
   @SerializedName("order")

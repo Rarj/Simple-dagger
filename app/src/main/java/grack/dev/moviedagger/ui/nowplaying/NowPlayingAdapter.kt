@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.rxbinding3.view.clicks
 import grack.dev.moviedagger.AppConstant.DURATION_THROTTLE
 import grack.dev.moviedagger.BR
-import grack.dev.moviedagger.data.repository.nowplaying.model.Result
+import grack.dev.moviedagger.data.repository.models.general.Result
 import grack.dev.moviedagger.databinding.ItemNowPlayingBinding
 import grack.dev.moviedagger.utils.ClickListener
 import java.util.concurrent.TimeUnit

@@ -1,9 +1,9 @@
-package grack.dev.moviedagger.data.repository.trailer.model.trailer
+package grack.dev.moviedagger.data.repository.models.trailer
 
 
 import com.google.gson.annotations.SerializedName
 
-data class ItemResponse(
+data class Result(
     @SerializedName("id")
     var id: String?,
     @SerializedName("iso_3166_1")

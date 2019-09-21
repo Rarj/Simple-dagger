@@ -1,9 +1,9 @@
-package grack.dev.moviedagger.data.repository.trailer.model.cast
+package grack.dev.moviedagger.data.repository.models.casterlist
 
 
 import com.google.gson.annotations.SerializedName
 
-data class Response(
+data class ResponseCastList(
   @SerializedName("cast")
   var cast: List<Cast>,
   @SerializedName("crew")

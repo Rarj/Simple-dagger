@@ -2,22 +2,21 @@ package grack.dev.moviedagger.ui.detail
 
 import androidx.lifecycle.MutableLiveData
 import grack.dev.moviedagger.base.BaseViewModel
-import grack.dev.moviedagger.data.repository.nowplaying.model.Result
+import grack.dev.moviedagger.data.repository.MovieService
+import grack.dev.moviedagger.data.repository.models.casterlist.ResponseCastList
+import grack.dev.moviedagger.data.repository.models.general.Result
 import grack.dev.moviedagger.data.repository.trailer.TrailerRepository
-import grack.dev.moviedagger.data.repository.trailer.TrailerService
-import grack.dev.moviedagger.data.repository.trailer.model.cast.Response
-import grack.dev.moviedagger.data.repository.trailer.model.trailer.ItemResponse
 import javax.inject.Inject
 
 class DetailViewModel @Inject constructor(
-  trailerService: TrailerService
+  movieService: MovieService
 ) : BaseViewModel() {
 
   var result = MutableLiveData<Result>()
 
-  var repository = TrailerRepository(trailerService)
-  var itemTrailer = MutableLiveData<List<ItemResponse>>()
-  var itemCast = MutableLiveData<Response>()
+  var repository = TrailerRepository(movieService)
+  var itemTrailer = MutableLiveData<List<grack.dev.moviedagger.data.repository.models.trailer.Result>>()
+  var itemCast = MutableLiveData<ResponseCastList>()
 
   fun loadTrailer(movie_id: Int?) {
     addToDisposable(

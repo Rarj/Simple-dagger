@@ -17,10 +17,13 @@ import com.google.gson.Gson
 import dagger.android.support.AndroidSupportInjection
 import grack.dev.moviedagger.AppConstant.INTENT_KEY
 import grack.dev.moviedagger.R
-import grack.dev.moviedagger.data.repository.nowplaying.model.Result
+import grack.dev.moviedagger.data.repository.models.casterlist.Cast
+import grack.dev.moviedagger.data.repository.models.general.Result
 import grack.dev.moviedagger.databinding.ActivityDetailBinding
-import grack.dev.moviedagger.ui.detail.adapter.CasterAdapter
-import grack.dev.moviedagger.ui.detail.trailer.TrailerActivity
+import grack.dev.moviedagger.ui.caster.CasterActivity
+import grack.dev.moviedagger.ui.caster.CasterAdapter
+import grack.dev.moviedagger.ui.trailer.TrailerActivity
+import grack.dev.moviedagger.utils.ClickListener
 import javax.inject.Inject
 
 class DetailActivity : BottomSheetDialogFragment() {
@@ -50,25 +53,29 @@ class DetailActivity : BottomSheetDialogFragment() {
     binding.viewModel = viewModel
     binding.lifecycleOwner = this
 
-    return binding.root
-  }
-
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-
     val bundle = this.arguments
     if (bundle != null) {
       data = Gson().fromJson(bundle.getString(INTENT_KEY), Result::class.java)
       viewModel.result.value = data
     }
 
-    adapterCaster = CasterAdapter(arrayListOf())
+    viewModel.loadTrailer(viewModel.result.value?.id)
+    viewModel.loadCast(viewModel.result.value?.id)
+
+    return binding.root
+  }
+
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+
+    adapterCaster = CasterAdapter(arrayListOf(), object : ClickListener<Cast> {
+      override fun onItemClick(t: Cast) {
+        startActivity(t)
+      }
+    })
     binding.recyclerCast.layoutManager =
       LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
     binding.recyclerCast.adapter = adapterCaster
-
-    viewModel.loadTrailer(viewModel.result.value?.id)
-    viewModel.loadCast(viewModel.result.value?.id)
 
     viewModel.itemCast.observe(this, Observer { caster ->
       adapterCaster.populateCasts(caster.cast)
@@ -86,6 +93,12 @@ class DetailActivity : BottomSheetDialogFragment() {
       intent.putExtra(INTENT_KEY, viewModel.itemTrailer.value?.get(0)?.key)
       startActivity(intent)
     }
+  }
+
+  private fun startActivity(cast: Cast) {
+    val intent = Intent(context, CasterActivity::class.java)
+    intent.putExtra(INTENT_KEY, Gson().toJson(cast))
+    context?.startActivity(intent)
   }
 
   override fun onStart() {

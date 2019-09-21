@@ -1,9 +1,9 @@
-package grack.dev.moviedagger.data.repository.nowplaying.model
+package grack.dev.moviedagger.data.repository.models.general
 
 
 import com.google.gson.annotations.SerializedName
 
-data class Response(
+data class ResponseGeneral(
   @SerializedName("dates")
   var dates: Dates?,
   @SerializedName("page")
