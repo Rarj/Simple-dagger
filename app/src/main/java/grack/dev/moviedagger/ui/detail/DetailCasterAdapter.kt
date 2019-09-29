@@ -1,24 +1,26 @@
-package grack.dev.moviedagger.ui.caster
+package grack.dev.moviedagger.ui.detail
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.rxbinding3.view.clicks
 import grack.dev.moviedagger.AppConstant
 import grack.dev.moviedagger.BR
-import grack.dev.moviedagger.databinding.ItemKnowsAsBinding
+import grack.dev.moviedagger.data.repository.models.casterlist.Cast
+import grack.dev.moviedagger.databinding.ItemCastBinding
 import grack.dev.moviedagger.utils.ClickListener
 import java.util.concurrent.TimeUnit
 
-class CasterAdapter(
-  val list: List<String>,
-  val listener: ClickListener<String>
-) : RecyclerView.Adapter<CasterAdapter.ViewHolder>() {
+class DetailCasterAdapter(
+  var list: MutableList<Cast>,
+  var listener: ClickListener<Cast>
+) :
+  RecyclerView.Adapter<DetailCasterAdapter.ViewHolder>() {
+
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
     val inflater = LayoutInflater.from(parent.context)
-    val view = ItemKnowsAsBinding.inflate(inflater, parent, false)
+    val view = ItemCastBinding.inflate(inflater, parent, false)
 
     return ViewHolder(view)
   }
@@ -29,17 +31,25 @@ class CasterAdapter(
     holder.bind(list[position], listener)
   }
 
-  inner class ViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
+  fun populateCasts(casts: List<Cast>) {
+    list.clear()
+    list.addAll(casts)
+    notifyDataSetChanged()
+  }
+
+  inner class ViewHolder(private val binding: ItemCastBinding) :
+    RecyclerView.ViewHolder(binding.root) {
 
     @SuppressLint("CheckResult")
-    fun bind(response: String, listener: ClickListener<String>) {
+    fun bind(cast: Cast, listener: ClickListener<Cast>) {
+
       binding.root.clicks()
         .throttleFirst(AppConstant.DURATION_THROTTLE, TimeUnit.MILLISECONDS)
         .subscribe {
-          listener.onItemClick(response)
+          listener.onItemClick(cast)
         }
 
-      binding.setVariable(BR.viewModel, response)
+      binding.setVariable(BR.viewModel, cast)
       binding.executePendingBindings()
     }
 

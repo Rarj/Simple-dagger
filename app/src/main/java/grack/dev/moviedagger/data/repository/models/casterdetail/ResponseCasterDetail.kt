@@ -7,7 +7,7 @@ data class ResponseCasterDetail(
   @SerializedName("adult")
   var adult: Boolean?,
   @SerializedName("also_known_as")
-  var alsoKnownAs: List<String?>?,
+  var alsoKnownAs: List<String>,
   @SerializedName("biography")
   var biography: String?,
   @SerializedName("birthday")

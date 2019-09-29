@@ -21,7 +21,6 @@ import grack.dev.moviedagger.data.repository.models.casterlist.Cast
 import grack.dev.moviedagger.data.repository.models.general.Result
 import grack.dev.moviedagger.databinding.ActivityDetailBinding
 import grack.dev.moviedagger.ui.caster.CasterActivity
-import grack.dev.moviedagger.ui.caster.CasterAdapter
 import grack.dev.moviedagger.ui.trailer.TrailerActivity
 import grack.dev.moviedagger.utils.ClickListener
 import javax.inject.Inject
@@ -34,7 +33,7 @@ class DetailActivity : BottomSheetDialogFragment() {
   private lateinit var binding: ActivityDetailBinding
   private lateinit var viewModel: DetailViewModel
   private lateinit var data: Result
-  private lateinit var adapterCaster: CasterAdapter
+  private lateinit var adapterCaster: DetailCasterAdapter
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -68,7 +67,7 @@ class DetailActivity : BottomSheetDialogFragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
-    adapterCaster = CasterAdapter(arrayListOf(), object : ClickListener<Cast> {
+    adapterCaster = DetailCasterAdapter(arrayListOf(), object : ClickListener<Cast> {
       override fun onItemClick(t: Cast) {
         startActivity(t)
       }

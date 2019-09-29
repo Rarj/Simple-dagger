@@ -34,7 +34,7 @@ object Common {
   fun setImageCircle(context: View, url: String?, imageView: AppCompatImageView) {
     if (url.isNullOrEmpty()) {
       Glide.with(context)
-        .load(R.drawable.ic_boy)
+        .load(R.drawable.ic_gender)
         .into(imageView)
     } else {
       Glide.with(context)

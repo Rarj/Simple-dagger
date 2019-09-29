@@ -47,10 +47,15 @@ object CustomBinding {
   @SuppressLint("SimpleDateFormat")
   @BindingAdapter(("android:date"))
   @JvmStatic
-  fun setSimpleDate(view: AppCompatTextView, releaseDate: String) {
-    val pattern = SimpleDateFormat("yyyy-MM-dd")
-    val date: Date? = pattern.parse(releaseDate)
-    view.text = SimpleDateFormat("EEEE, dd MMMM yyyy").format(date)
+  fun setSimpleDate(view: AppCompatTextView, releaseDate: String?) {
+    if (releaseDate.isNullOrEmpty()) {
+      view.text = "null"
+
+    } else {
+      val pattern = SimpleDateFormat("yyyy-MM-dd")
+      val date: Date? = pattern.parse(releaseDate)
+      view.text = SimpleDateFormat("EEEE, dd MMMM yyyy").format(date)
+    }
   }
 
   @BindingAdapter(("android:overview"))
@@ -60,6 +65,16 @@ object CustomBinding {
       view.text = view.resources.getString(R.string.detail_no_description_caption)
     } else {
       view.text = overview
+    }
+  }
+
+  @BindingAdapter(("android:gender"))
+  @JvmStatic
+  fun setGender(view: AppCompatTextView, gender: Int) {
+    when (gender) {
+      1 -> view.text = "Female"
+      2 -> view.text = "Male"
+      else -> view.text = "Not Defined"
     }
   }
 
