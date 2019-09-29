@@ -1,21 +1,15 @@
 package grack.dev.moviedagger.ui.caster
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import com.jakewharton.rxbinding3.view.clicks
-import grack.dev.moviedagger.AppConstant
 import grack.dev.moviedagger.BR
+import grack.dev.moviedagger.R
 import grack.dev.moviedagger.databinding.ItemKnowsAsBinding
-import grack.dev.moviedagger.utils.ClickListener
-import java.util.concurrent.TimeUnit
+import kotlinx.android.synthetic.main.item_knows_as.view.*
 
-class CasterAdapter(
-  val list: List<String>,
-  val listener: ClickListener<String>
-) : RecyclerView.Adapter<CasterAdapter.ViewHolder>() {
+class CasterAdapter(val list: List<String>) : RecyclerView.Adapter<CasterAdapter.ViewHolder>() {
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
     val inflater = LayoutInflater.from(parent.context)
     val view = ItemKnowsAsBinding.inflate(inflater, parent, false)
@@ -26,19 +20,19 @@ class CasterAdapter(
   override fun getItemCount() = list.size
 
   override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-    holder.bind(list[position], listener)
+    holder.bind(list[position])
+
+    if (position % 2 == 0) {
+      holder.binding.root.text_known_as.setBackgroundResource(R.color.nobel_B3B3B3)
+    } else {
+      holder.binding.root.text_known_as.setBackgroundResource(R.color.white_FFFFFF)
+    }
+
   }
 
   inner class ViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
 
-    @SuppressLint("CheckResult")
-    fun bind(response: String, listener: ClickListener<String>) {
-      binding.root.clicks()
-        .throttleFirst(AppConstant.DURATION_THROTTLE, TimeUnit.MILLISECONDS)
-        .subscribe {
-          listener.onItemClick(response)
-        }
-
+    fun bind(response: String) {
       binding.setVariable(BR.viewModel, response)
       binding.executePendingBindings()
     }
