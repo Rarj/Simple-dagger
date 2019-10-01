@@ -16,4 +16,12 @@
   <!--  Now Playing-->
   <string name="now_playing_loading_caption">Loading…</string>
 
+  <!--  Movie Type-->
+  <string-array name="movie_type">
+    <item>Now Playing</item>
+    <item>Popular</item>
+    <item>Top Rated</item>
+    <item>Upcoming</item>
+  </string-array>
+
 </resources>

@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import grack.dev.moviedagger.R
-import grack.dev.moviedagger.ui.nowplaying.NowPlayingActivity
+import grack.dev.moviedagger.ui.movie.MovieActivity
 
 class SplashActivity : AppCompatActivity() {
 
@@ -12,7 +12,7 @@ class SplashActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_splash)
 
-    startActivity(Intent(this, NowPlayingActivity::class.java))
+    startActivity(Intent(this, MovieActivity::class.java))
     finish()
   }
 }

@@ -1,19 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
 
   <data>
     <variable
-        name="viewModel"
-        type="grack.dev.moviedagger.ui.nowplaying.NowPlayingViewModel" />
+      name="viewModel"
+      type="grack.dev.moviedagger.ui.movie.MovieViewModel" />
   </data>
 
   <androidx.constraintlayout.widget.ConstraintLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-      tools:context=".ui.nowplaying.NowPlayingActivity">
+    tools:context=".ui.movie.MovieActivity">
+
+    <androidx.appcompat.widget.AppCompatSpinner
+      android:id="@+id/spinner_select_type"
+      android:layout_width="0dp"
+      android:layout_height="48dp"
+      android:layout_margin="8dp"
+      android:background="@drawable/selector_spinner"
+      android:entries="@array/movie_type"
+      android:spinnerMode="dropdown"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
 
     <com.airbnb.lottie.LottieAnimationView
       android:id="@+id/loading_animation"
@@ -22,7 +34,7 @@
       app:layout_constraintBottom_toTopOf="@id/text_caption_loading"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/spinner_select_type"
       app:layout_constraintVertical_chainStyle="packed"
       app:lottie_autoPlay="true"
       app:lottie_fileName="loading_animation.json"
@@ -43,16 +55,18 @@
       app:layout_constraintVertical_chainStyle="packed" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_now_playing"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:overScrollMode="never"
-      android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/item_now_playing" />
+      android:id="@+id/recycler_now_playing"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:layout_marginStart="2dp"
+      android:layout_marginTop="8dp"
+      android:layout_marginEnd="2dp"
+      android:overScrollMode="never"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/spinner_select_type"
+      tools:listitem="@layout/item_now_playing" />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

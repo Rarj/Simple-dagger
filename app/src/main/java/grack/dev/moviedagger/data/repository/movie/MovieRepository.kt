@@ -1,4 +1,4 @@
-package grack.dev.moviedagger.data.repository.nowplaying
+package grack.dev.moviedagger.data.repository.movie
 
 import grack.dev.moviedagger.data.repository.MovieService
 import grack.dev.moviedagger.data.repository.models.general.ResponseGeneral
@@ -8,7 +8,7 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Singleton
 
 @Singleton
-class NowPlayingRepository(
+class MovieRepository(
   private val movieApiService: MovieService
 ) {
 

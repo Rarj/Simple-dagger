@@ -1,4 +1,4 @@
-package grack.dev.moviedagger.ui.nowplaying
+package grack.dev.moviedagger.ui.movie
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -12,11 +12,11 @@ import grack.dev.moviedagger.databinding.ItemNowPlayingBinding
 import grack.dev.moviedagger.utils.ClickListener
 import java.util.concurrent.TimeUnit
 
-class NowPlayingAdapter(
+class MovieAdapter(
   var list: MutableList<Result>,
   var listener: ClickListener<Result>
 ) :
-  RecyclerView.Adapter<NowPlayingAdapter.CustomViewHolder>() {
+  RecyclerView.Adapter<MovieAdapter.CustomViewHolder>() {
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
     val inflater = LayoutInflater.from(parent.context)

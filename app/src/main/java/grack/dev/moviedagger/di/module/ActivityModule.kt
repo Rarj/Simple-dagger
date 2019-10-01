@@ -4,13 +4,13 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import grack.dev.moviedagger.ui.caster.CasterActivity
 import grack.dev.moviedagger.ui.detail.DetailActivity
-import grack.dev.moviedagger.ui.nowplaying.NowPlayingActivity
+import grack.dev.moviedagger.ui.movie.MovieActivity
 
 @Module
 abstract class ActivityModule {
 
   @ContributesAndroidInjector
-  abstract fun contributeNowPlayingActivity(): NowPlayingActivity
+  abstract fun contributeMovieActivity(): MovieActivity
 
   @ContributesAndroidInjector
   abstract fun contributeDetailActivity(): DetailActivity
