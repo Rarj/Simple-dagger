@@ -6,7 +6,7 @@
   <data>
     <variable
       name="viewModel"
-      type="grack.dev.moviedagger.ui.movie.MovieViewModel" />
+      type="grack.dev.moviedagger.ui.movie.catalogue.CatalogueViewModel" />
   </data>
 
   <androidx.constraintlayout.widget.ConstraintLayout

@@ -1,22 +1,22 @@
-package grack.dev.moviedagger.ui.movie
+package grack.dev.moviedagger.ui.movie.catalogue
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.rxbinding3.view.clicks
-import grack.dev.moviedagger.AppConstant.DURATION_THROTTLE
+import grack.dev.moviedagger.AppConstant
 import grack.dev.moviedagger.BR
 import grack.dev.moviedagger.data.repository.models.general.Result
 import grack.dev.moviedagger.databinding.ItemNowPlayingBinding
 import grack.dev.moviedagger.utils.ClickListener
 import java.util.concurrent.TimeUnit
 
-class MovieAdapter(
+class CatalogueAdapter(
   var list: MutableList<Result>,
   var listener: ClickListener<Result>
 ) :
-  RecyclerView.Adapter<MovieAdapter.CustomViewHolder>() {
+  RecyclerView.Adapter<CatalogueAdapter.CustomViewHolder>() {
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
     val inflater = LayoutInflater.from(parent.context)
@@ -45,7 +45,7 @@ class MovieAdapter(
     fun bind(data: Result, listener: ClickListener<Result>) {
 
       dataBinding.root.clicks()
-        .throttleFirst(DURATION_THROTTLE, TimeUnit.MILLISECONDS)
+        .throttleFirst(AppConstant.DURATION_THROTTLE, TimeUnit.MILLISECONDS)
         .subscribe {
           listener.onItemClick(data)
         }

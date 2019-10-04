@@ -24,4 +24,9 @@
     <item>Upcoming</item>
   </string-array>
 
+  <!--  Bottom Navigation-->
+  <string name="navigation_movie">Movie</string>
+  <string name="navigation_favorite">Favorite</string>
+  <string name="navigation_history">History</string>
+
 </resources>

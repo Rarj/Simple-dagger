@@ -1,4 +1,4 @@
-package grack.dev.moviedagger.ui.movie
+package grack.dev.moviedagger.ui.movie.catalogue
 
 import androidx.lifecycle.MutableLiveData
 import grack.dev.moviedagger.base.BaseViewModel
@@ -7,9 +7,7 @@ import grack.dev.moviedagger.data.repository.models.general.Result
 import grack.dev.moviedagger.data.repository.movie.MovieRepository
 import javax.inject.Inject
 
-class MovieViewModel @Inject constructor(
-  movieApiService: MovieService
-) : BaseViewModel() {
+class CatalogueViewModel @Inject constructor(movieApiService: MovieService) : BaseViewModel() {
 
   private val repository = MovieRepository(movieApiService)
   private val movie = MutableLiveData<List<Result>>()
@@ -31,5 +29,6 @@ class MovieViewModel @Inject constructor(
     super.onCleared()
     clearDisposable()
   }
+
 
 }

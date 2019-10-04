@@ -7,16 +7,17 @@
   <uses-permission android:name="android.permission.INTERNET" />
 
   <application
+    android:name=".AppController"
     android:allowBackup="true"
     android:hardwareAccelerated="true"
     android:icon="@mipmap/ic_launcher"
     android:label="@string/app_name"
-    android:name=".AppController"
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
     android:theme="@style/AppTheme"
     tools:ignore="GoogleAppIndexingWarning">
-    <activity android:name=".ui.caster.CasterActivity"></activity>
+    <activity android:name=".ui.movie.bottomnavigation.BottomNavigationActivity" />
+    <activity android:name=".ui.caster.CasterActivity" />
     <activity
       android:name=".ui.splash.SplashActivity"
       android:theme="@style/SplashTheme">
@@ -26,7 +27,6 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
-    <activity android:name=".ui.movie.MovieActivity" />
     <activity android:name=".ui.trailer.TrailerActivity" />
   </application>
 

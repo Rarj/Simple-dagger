@@ -7,6 +7,7 @@ import dagger.android.support.AndroidSupportInjectionModule
 import grack.dev.moviedagger.AppController
 import grack.dev.moviedagger.di.module.ActivityModule
 import grack.dev.moviedagger.di.module.ApiModule
+import grack.dev.moviedagger.di.module.FragmentModule
 import grack.dev.moviedagger.di.module.ViewModelModule
 import javax.inject.Singleton
 
@@ -14,7 +15,7 @@ import javax.inject.Singleton
 @Component(
   modules = [ApiModule::class,
     ViewModelModule::class, AndroidSupportInjectionModule::class,
-    ActivityModule::class]
+    ActivityModule::class, FragmentModule::class]
 )
 interface ApiComponents {
 

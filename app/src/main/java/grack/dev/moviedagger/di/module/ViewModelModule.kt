@@ -8,18 +8,13 @@ import dagger.multibindings.IntoMap
 import grack.dev.moviedagger.di.factory.ViewModelFactory
 import grack.dev.moviedagger.ui.caster.CasterViewModel
 import grack.dev.moviedagger.ui.detail.DetailViewModel
-import grack.dev.moviedagger.ui.movie.MovieViewModel
+import grack.dev.moviedagger.ui.movie.catalogue.CatalogueViewModel
 
 @Module
 internal abstract class ViewModelModule {
 
   @Binds
   internal abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
-
-  @Binds
-  @IntoMap
-  @ViewModelKey(MovieViewModel::class)
-  protected abstract fun movieViewModel(movieViewModel: MovieViewModel): ViewModel
 
   @Binds
   @IntoMap
@@ -30,5 +25,10 @@ internal abstract class ViewModelModule {
   @IntoMap
   @ViewModelKey(CasterViewModel::class)
   protected abstract fun casterViewModel(casterViewModel: CasterViewModel): ViewModel
+
+  @Binds
+  @IntoMap
+  @ViewModelKey(CatalogueViewModel::class)
+  protected abstract fun catalogueViewModel(catalogueViewModel: CatalogueViewModel): ViewModel
 
 }
