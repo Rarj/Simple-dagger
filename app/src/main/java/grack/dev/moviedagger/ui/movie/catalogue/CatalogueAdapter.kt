@@ -1,57 +1,69 @@
 package grack.dev.moviedagger.ui.movie.catalogue
 
-import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import com.jakewharton.rxbinding3.view.clicks
-import grack.dev.moviedagger.AppConstant
+import com.intrusoft.sectionedrecyclerview.SectionRecyclerViewAdapter
 import grack.dev.moviedagger.BR
-import grack.dev.moviedagger.data.repository.models.general.Result
-import grack.dev.moviedagger.databinding.ItemNowPlayingBinding
-import grack.dev.moviedagger.utils.ClickListener
-import java.util.concurrent.TimeUnit
+import grack.dev.moviedagger.databinding.ItemCatalogueBinding
+import grack.dev.moviedagger.databinding.ItemSectionHeaderBinding
+import grack.dev.moviedagger.ui.movie.catalogue.model.Child
+import grack.dev.moviedagger.ui.movie.catalogue.model.SectionItem
 
 class CatalogueAdapter(
-  var list: MutableList<Result>,
-  var listener: ClickListener<Result>
+  val context: Context?,
+  sectionItemList: MutableList<SectionItem>?
 ) :
-  RecyclerView.Adapter<CatalogueAdapter.CustomViewHolder>() {
+  SectionRecyclerViewAdapter<
+        SectionItem,
+        Child,
+        CatalogueAdapter.SectionViewHolder, CatalogueAdapter.ChildViewHolder>(
+    context,
+    sectionItemList
+  ) {
 
-  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
-    val inflater = LayoutInflater.from(parent.context)
-    val dataBinding = ItemNowPlayingBinding.inflate(inflater, parent, false)
-    return CustomViewHolder(dataBinding)
+  override fun onCreateSectionViewHolder(viewGroup: ViewGroup, viewType: Int): SectionViewHolder {
+    val inflater = LayoutInflater.from(viewGroup.context)
+    val dataBinding = ItemSectionHeaderBinding.inflate(inflater, viewGroup, false)
+    return SectionViewHolder(dataBinding)
   }
 
-  override fun getItemCount(): Int {
-    return list.size
+  override fun onBindSectionViewHolder(
+    sectionViewHolder: SectionViewHolder,
+    position: Int,
+    sectionItem: SectionItem?
+  ) {
+    sectionViewHolder.bind(sectionItem?.title)
   }
 
-  override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
-    holder.bind(list[position], listener)
+  override fun onCreateChildViewHolder(viewGroup: ViewGroup, viewType: Int): ChildViewHolder {
+    val inflater = LayoutInflater.from(viewGroup.context)
+    val dataBinding = ItemCatalogueBinding.inflate(inflater, viewGroup, false)
+    return ChildViewHolder(dataBinding)
   }
 
-  fun updateCountries(newList: List<Result>) {
-    list.clear()
-    list.addAll(newList)
-    notifyDataSetChanged()
+  override fun onBindChildViewHolder(
+    childViewHolder: ChildViewHolder?,
+    headerPosition: Int,
+    childPosition: Int,
+    child: Child?
+  ) {
+    childViewHolder?.bind(child)
   }
 
-  class CustomViewHolder(private val dataBinding: ItemNowPlayingBinding) :
-    RecyclerView.ViewHolder(dataBinding.root) {
+  class SectionViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
+    fun bind(header: String?) {
+      binding.setVariable(BR.sectionItem, header)
+      binding.executePendingBindings()
+    }
+  }
 
-    @SuppressLint("CheckResult")
-    fun bind(data: Result, listener: ClickListener<Result>) {
-
-      dataBinding.root.clicks()
-        .throttleFirst(AppConstant.DURATION_THROTTLE, TimeUnit.MILLISECONDS)
-        .subscribe {
-          listener.onItemClick(data)
-        }
-
-      dataBinding.setVariable(BR.viewModel, data)
-      dataBinding.executePendingBindings()
+  class ChildViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
+    fun bind(child: Child?) {
+      binding.setVariable(BR.viewModel, child?.result)
+      binding.executePendingBindings()
     }
   }
 

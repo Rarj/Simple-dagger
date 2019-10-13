@@ -9,6 +9,7 @@ import grack.dev.moviedagger.di.factory.ViewModelFactory
 import grack.dev.moviedagger.ui.caster.CasterViewModel
 import grack.dev.moviedagger.ui.detail.DetailViewModel
 import grack.dev.moviedagger.ui.movie.catalogue.CatalogueViewModel
+import grack.dev.moviedagger.ui.splash.SplashViewModel
 
 @Module
 internal abstract class ViewModelModule {
@@ -30,5 +31,10 @@ internal abstract class ViewModelModule {
   @IntoMap
   @ViewModelKey(CatalogueViewModel::class)
   protected abstract fun catalogueViewModel(catalogueViewModel: CatalogueViewModel): ViewModel
+
+  @Binds
+  @IntoMap
+  @ViewModelKey(SplashViewModel::class)
+  protected abstract fun splashViewModel(splashViewModel: SplashViewModel): ViewModel
 
 }
