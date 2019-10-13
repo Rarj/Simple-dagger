@@ -19,6 +19,7 @@ import grack.dev.moviedagger.databinding.FragmentCatalogueBinding
 import grack.dev.moviedagger.ui.detail.DetailActivity
 import grack.dev.moviedagger.ui.movie.catalogue.model.Child
 import grack.dev.moviedagger.ui.movie.catalogue.model.SectionItem
+import grack.dev.moviedagger.utils.ClickListener
 import grack.dev.moviedagger.utils.MarginItemDecoration
 import javax.inject.Inject
 
@@ -57,30 +58,42 @@ class CatalogueFragment(private var movies: Movies) : Fragment() {
     var child = ArrayList<Child>()
     val section = ArrayList<SectionItem>()
 
-    movies.nowPlaying.forEach { result ->
-      child.add(Child(result))
+    movies.nowPlaying.forEachIndexed { index, result ->
+      if (index <= 4) {
+        child.add(Child(result))
+      }
     }
     section.add(SectionItem("NOW PLAYING", child))
 
     child = ArrayList()
-    movies.popular.forEach { result ->
-      child.add(Child(result))
+    movies.topRated.forEachIndexed { index, result ->
+      if (index <= 4) {
+        child.add(Child(result))
+      }
     }
     section.add(SectionItem("TOP RATED", child))
 
     child = ArrayList()
-    movies.topRated.forEach { result ->
-      child.add(Child(result))
+    movies.popular.forEachIndexed { index, result ->
+      if (index <= 4) {
+        child.add(Child(result))
+      }
     }
     section.add(SectionItem("POPULAR", child))
 
     child = ArrayList()
-    movies.upcoming.forEach { result ->
-      child.add(Child(result))
+    movies.upcoming.forEachIndexed { index, result ->
+      if (index <= 4) {
+        child.add(Child(result))
+      }
     }
     section.add(SectionItem("UPCOMING", child))
 
-    catalogueAdapter = CatalogueAdapter(activity, section)
+    catalogueAdapter = CatalogueAdapter(activity, section, object : ClickListener<Result> {
+      override fun onItemClick(t: Result?) {
+        passData(t)
+      }
+    })
     binding.recyclerCatalogue.adapter = catalogueAdapter
     binding.recyclerCatalogue.layoutManager = LinearLayoutManager(context)
     binding.recyclerCatalogue.addItemDecoration(MarginItemDecoration(16))
@@ -88,7 +101,7 @@ class CatalogueFragment(private var movies: Movies) : Fragment() {
     catalogueAdapter.notifyDataSetChanged()
   }
 
-  private fun passData(data: Result) {
+  private fun passData(data: Result?) {
     val bundle = Bundle()
     bundle.putString(AppConstant.INTENT_KEY, Gson().toJson(data))
     val detailActivity = DetailActivity()

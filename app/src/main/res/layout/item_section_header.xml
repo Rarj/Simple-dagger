@@ -21,10 +21,19 @@
       android:textAppearance="@style/H5"
       android:textStyle="bold"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintEnd_toStartOf="@id/text_more"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       tools:text="Now Playing" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+      android:id="@+id/text_more"
+      android:layout_width="wrap_content"
+      android:layout_height="0dp"
+      android:src="@drawable/ic_more"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

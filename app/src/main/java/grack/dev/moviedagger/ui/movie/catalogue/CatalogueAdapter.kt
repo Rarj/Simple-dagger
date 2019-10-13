@@ -1,20 +1,28 @@
 package grack.dev.moviedagger.ui.movie.catalogue
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.intrusoft.sectionedrecyclerview.SectionRecyclerViewAdapter
+import com.jakewharton.rxbinding3.view.clicks
+import grack.dev.moviedagger.AppConstant.DURATION_THROTTLE
 import grack.dev.moviedagger.BR
+import grack.dev.moviedagger.data.repository.models.general.Result
 import grack.dev.moviedagger.databinding.ItemCatalogueBinding
 import grack.dev.moviedagger.databinding.ItemSectionHeaderBinding
 import grack.dev.moviedagger.ui.movie.catalogue.model.Child
 import grack.dev.moviedagger.ui.movie.catalogue.model.SectionItem
+import grack.dev.moviedagger.utils.ClickListener
+import org.jetbrains.anko.toast
+import java.util.concurrent.TimeUnit
 
 class CatalogueAdapter(
-  val context: Context?,
-  sectionItemList: MutableList<SectionItem>?
+  private val context: Context?,
+  sectionItemList: MutableList<SectionItem>?,
+  private val clickListener: ClickListener<Result>
 ) :
   SectionRecyclerViewAdapter<
         SectionItem,
@@ -36,6 +44,10 @@ class CatalogueAdapter(
     sectionItem: SectionItem?
   ) {
     sectionViewHolder.bind(sectionItem?.title)
+
+    sectionViewHolder.binding.root.setOnClickListener {
+      context?.toast(sectionItem?.title.toString())
+    }
   }
 
   override fun onCreateChildViewHolder(viewGroup: ViewGroup, viewType: Int): ChildViewHolder {
@@ -50,7 +62,7 @@ class CatalogueAdapter(
     childPosition: Int,
     child: Child?
   ) {
-    childViewHolder?.bind(child)
+    childViewHolder?.bind(child, clickListener)
   }
 
   class SectionViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -61,9 +73,15 @@ class CatalogueAdapter(
   }
 
   class ChildViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(child: Child?) {
+    @SuppressLint("CheckResult")
+    fun bind(child: Child?, clickListener: ClickListener<Result>) {
       binding.setVariable(BR.viewModel, child?.result)
       binding.executePendingBindings()
+
+      binding.root.clicks().throttleFirst(DURATION_THROTTLE, TimeUnit.MILLISECONDS)
+        .subscribe {
+          clickListener.onItemClick(child?.result)
+        }
     }
   }
 
