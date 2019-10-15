@@ -1,5 +1,6 @@
 package grack.dev.moviedagger.ui.movie.catalogue
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +20,7 @@ import grack.dev.moviedagger.databinding.FragmentCatalogueBinding
 import grack.dev.moviedagger.ui.detail.DetailActivity
 import grack.dev.moviedagger.ui.movie.catalogue.model.Child
 import grack.dev.moviedagger.ui.movie.catalogue.model.SectionItem
+import grack.dev.moviedagger.ui.movie.more.MoreActivity
 import grack.dev.moviedagger.utils.ClickListener
 import grack.dev.moviedagger.utils.MarginItemDecoration
 import javax.inject.Inject
@@ -91,7 +93,11 @@ class CatalogueFragment(private var movies: Movies) : Fragment() {
 
     catalogueAdapter = CatalogueAdapter(activity, section, object : ClickListener<Result> {
       override fun onItemClick(t: Result?) {
-        passData(t)
+        startActivityDetail(t)
+      }
+    }, object : ClickListener<String> {
+      override fun onItemClick(t: String?) {
+        startActivityMore(t, movies)
       }
     })
     binding.recyclerCatalogue.adapter = catalogueAdapter
@@ -101,7 +107,14 @@ class CatalogueFragment(private var movies: Movies) : Fragment() {
     catalogueAdapter.notifyDataSetChanged()
   }
 
-  private fun passData(data: Result?) {
+  private fun startActivityMore(header: String?, movies: Movies) {
+    val intent = Intent(activity, MoreActivity::class.java)
+    intent.putExtra(AppConstant.INTENT_KEY, Gson().toJson(movies))
+    intent.putExtra("header", header)
+    startActivity(intent)
+  }
+
+  private fun startActivityDetail(data: Result?) {
     val bundle = Bundle()
     bundle.putString(AppConstant.INTENT_KEY, Gson().toJson(data))
     val detailActivity = DetailActivity()

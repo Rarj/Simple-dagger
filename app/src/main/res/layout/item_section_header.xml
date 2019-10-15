@@ -20,6 +20,7 @@
       android:text="@{sectionItem}"
       android:textAppearance="@style/H5"
       android:textStyle="bold"
+      android:textColor="@color/dove_gray_636363"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toStartOf="@id/text_more"
       app:layout_constraintStart_toStartOf="parent"

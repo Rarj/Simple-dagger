@@ -16,13 +16,13 @@ import grack.dev.moviedagger.databinding.ItemSectionHeaderBinding
 import grack.dev.moviedagger.ui.movie.catalogue.model.Child
 import grack.dev.moviedagger.ui.movie.catalogue.model.SectionItem
 import grack.dev.moviedagger.utils.ClickListener
-import org.jetbrains.anko.toast
 import java.util.concurrent.TimeUnit
 
 class CatalogueAdapter(
-  private val context: Context?,
+  context: Context?,
   sectionItemList: MutableList<SectionItem>?,
-  private val clickListener: ClickListener<Result>
+  private val clickListener: ClickListener<Result>,
+  private val headerClickListener: ClickListener<String>
 ) :
   SectionRecyclerViewAdapter<
         SectionItem,
@@ -43,11 +43,7 @@ class CatalogueAdapter(
     position: Int,
     sectionItem: SectionItem?
   ) {
-    sectionViewHolder.bind(sectionItem?.title)
-
-    sectionViewHolder.binding.root.setOnClickListener {
-      context?.toast(sectionItem?.title.toString())
-    }
+    sectionViewHolder.bind(sectionItem?.title, headerClickListener)
   }
 
   override fun onCreateChildViewHolder(viewGroup: ViewGroup, viewType: Int): ChildViewHolder {
@@ -66,9 +62,14 @@ class CatalogueAdapter(
   }
 
   class SectionViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(header: String?) {
+    @SuppressLint("CheckResult")
+    fun bind(header: String?, clickListener: ClickListener<String>) {
       binding.setVariable(BR.sectionItem, header)
       binding.executePendingBindings()
+      binding.root.clicks().throttleFirst(DURATION_THROTTLE, TimeUnit.MILLISECONDS)
+        .subscribe {
+          clickListener.onItemClick(header)
+        }
     }
   }
 

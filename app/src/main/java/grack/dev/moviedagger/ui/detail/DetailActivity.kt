@@ -68,7 +68,7 @@ class DetailActivity : BottomSheetDialogFragment() {
     super.onViewCreated(view, savedInstanceState)
 
     adapterCaster = DetailCasterAdapter(arrayListOf(), object : ClickListener<Cast> {
-      override fun onItemClick(t: Cast) {
+      override fun onItemClick(t: Cast?) {
         startActivity(t)
       }
     })
@@ -94,7 +94,7 @@ class DetailActivity : BottomSheetDialogFragment() {
     }
   }
 
-  private fun startActivity(cast: Cast) {
+  private fun startActivity(cast: Cast?) {
     val intent = Intent(context, CasterActivity::class.java)
     intent.putExtra(INTENT_KEY, Gson().toJson(cast))
     context?.startActivity(intent)

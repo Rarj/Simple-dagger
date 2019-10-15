@@ -5,7 +5,6 @@ import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.view.View
-import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatImageView
 import com.bumptech.glide.Glide
 import com.orhanobut.logger.Logger
@@ -19,7 +18,7 @@ object Common {
     Logger.e(message)
   }
 
-  fun setImage(context: View, url: String?, imageView: ImageView) {
+  fun setImage(context: View, url: String?, imageView: AppCompatImageView) {
     if (url.isNullOrEmpty()) {
       Glide.with(context)
         .load(R.drawable.ic_poster_blank)

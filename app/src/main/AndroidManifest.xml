@@ -16,6 +16,7 @@
     android:supportsRtl="true"
     android:theme="@style/AppTheme"
     tools:ignore="GoogleAppIndexingWarning">
+    <activity android:name=".ui.movie.more.MoreActivity" />
     <activity android:name=".ui.movie.bottomnavigation.BottomNavigationActivity" />
     <activity android:name=".ui.caster.CasterActivity" />
     <activity

@@ -4,9 +4,9 @@ import com.intrusoft.sectionedrecyclerview.Section
 
 class SectionItem(
   var title: String,
-  var result: ArrayList<Child>
+  var result: ArrayList<Child>?
 ) : Section<Child> {
-  override fun getChildItems(): ArrayList<Child> {
+  override fun getChildItems(): ArrayList<Child>? {
     return result
   }
 }
