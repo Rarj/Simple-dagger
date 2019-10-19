@@ -22,10 +22,10 @@ class CatalogueViewModel @Inject constructor(movieApiService: MovieService) : Ba
 
 //  fun getMoviesLiveData() = movie
 
-  override fun onCleared() {
-    super.onCleared()
-    clearDisposable()
-  }
+//  override fun onCleared() {
+//    super.onCleared()
+//    clearDisposable()
+//  }
 
 
 }

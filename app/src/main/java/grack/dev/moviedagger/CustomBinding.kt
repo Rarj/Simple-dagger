@@ -26,7 +26,7 @@ object CustomBinding {
 
   @BindingAdapter(("android:url"))
   @JvmStatic
-  fun setUrlImage(view: AppCompatImageView, url: String) {
+  fun setUrlImage(view: AppCompatImageView, url: String?) {
     setImage(view, url, view)
   }
 
@@ -38,7 +38,7 @@ object CustomBinding {
 
   @BindingAdapter(("android:blur"))
   @JvmStatic
-  fun setImageBlur(view: AppCompatImageView, url: String) {
+  fun setImageBlur(view: AppCompatImageView, url: String?) {
     val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
     StrictMode.setThreadPolicy(policy)
     Blurry.with(view.context).from(getBitmap(view, url)).into(view)

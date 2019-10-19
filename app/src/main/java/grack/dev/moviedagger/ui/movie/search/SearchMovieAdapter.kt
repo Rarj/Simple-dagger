@@ -1,4 +1,4 @@
-package grack.dev.moviedagger.ui.movie.more
+package grack.dev.moviedagger.ui.movie.search
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -14,37 +14,38 @@ import grack.dev.moviedagger.databinding.ItemCatalogueBinding
 import grack.dev.moviedagger.utils.ClickListener
 import java.util.concurrent.TimeUnit
 
-class MoreAdapter(
-  var context: Context,
-  var list: List<Result>?,
-  var listener: ClickListener<Result>
-) : RecyclerView.Adapter<MoreAdapter.ViewHolder>() {
+class SearchMovieAdapter(
+  val context: Context,
+  private var list: List<Result>?,
+  private val listenerClick: ClickListener<Result>
+) : RecyclerView.Adapter<SearchMovieAdapter.ViewHolder>() {
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-    val inflate = LayoutInflater.from(context)
-    val view = ItemCatalogueBinding.inflate(inflate, parent, false)
-
+    val inflater = LayoutInflater.from(context)
+    val view = ItemCatalogueBinding.inflate(inflater, parent, false)
     return ViewHolder(view)
   }
 
-  override fun getItemCount(): Int = list?.size!!
+  override fun getItemCount() = list!!.size
 
   override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-    val result = list?.get(position)
-    holder.bind(result, listener)
+    holder.bind(list?.get(position), listenerClick)
   }
 
-  class ViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
+  class ViewHolder(private val binding: ViewDataBinding) :
+    RecyclerView.ViewHolder(binding.root) {
+
     @SuppressLint("CheckResult")
-    fun bind(result: Result?, listener: ClickListener<Result>) {
+    fun bind(result: Result?, listenerClick: ClickListener<Result>) {
       binding.setVariable(BR.viewModel, result)
       binding.executePendingBindings()
 
-      binding.root.clicks()
-        .throttleFirst(DURATION_THROTTLE, TimeUnit.MILLISECONDS).subscribe {
-          listener.onItemClick(result)
+      binding.root.clicks().throttleFirst(DURATION_THROTTLE, TimeUnit.MILLISECONDS)
+        .subscribe {
+          listenerClick.onItemClick(result)
         }
-    }
-  }
 
+    }
+
+  }
 }

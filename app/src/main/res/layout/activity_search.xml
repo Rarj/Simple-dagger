@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+    <variable
+      name="searchViewModel"
+      type="grack.dev.moviedagger.ui.movie.search.SearchViewModel" />
+  </data>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.AppCompatEditText
+      android:id="@+id/input_search"
+      style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:drawableStart="@drawable/ic_search"
+      android:drawablePadding="8dp"
+      android:hint="Cari disini"
+      android:textAppearance="@style/Subtitle1"
+      android:textColor="@color/colorPrimaryDark"
+      app:boxStrokeColor="@color/black_000000"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/recycler_search"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:layout_margin="16dp"
+      android:overScrollMode="never"
+      android:visibility="invisible"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/input_search"
+      tools:listitem="@layout/item_catalogue" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+      android:id="@+id/image_state_search"
+      android:layout_width="300dp"
+      android:layout_height="256dp"
+      android:layout_margin="16dp"
+      android:src="@drawable/ic_empty_search"
+      app:layout_constraintBottom_toTopOf="@id/text_state_search"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/input_search"
+      app:layout_constraintVertical_chainStyle="packed" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+      android:id="@+id/text_state_search"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:text="@{searchViewModel.captionEmptySearch}"
+      android:textAlignment="center"
+      android:textAppearance="@style/H6"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/image_state_search"
+      tools:text="Film Spiderman belum ada tuh." />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

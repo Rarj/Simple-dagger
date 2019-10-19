@@ -7,6 +7,7 @@ import grack.dev.moviedagger.data.repository.models.trailer.ResponseTrailer
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface MovieService {
 
@@ -29,5 +30,10 @@ interface MovieService {
   fun loadCasterDetail(
     @Path("caster_id") caster_id: Int?
   ): Observable<ResponseCasterDetail>
+
+  @GET("search/movie")
+  fun search(
+    @Query("query") query: String
+  ): Observable<ResponseGeneral>
 
 }

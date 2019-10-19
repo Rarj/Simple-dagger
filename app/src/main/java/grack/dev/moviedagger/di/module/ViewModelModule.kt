@@ -10,6 +10,7 @@ import grack.dev.moviedagger.ui.caster.CasterViewModel
 import grack.dev.moviedagger.ui.detail.DetailViewModel
 import grack.dev.moviedagger.ui.movie.catalogue.CatalogueViewModel
 import grack.dev.moviedagger.ui.movie.more.MoreViewModel
+import grack.dev.moviedagger.ui.movie.search.SearchViewModel
 import grack.dev.moviedagger.ui.splash.SplashViewModel
 
 @Module
@@ -42,5 +43,10 @@ internal abstract class ViewModelModule {
   @IntoMap
   @ViewModelKey(MoreViewModel::class)
   protected abstract fun moreViewModel(moreViewModel: MoreViewModel): ViewModel
+
+  @Binds
+  @IntoMap
+  @ViewModelKey(SearchViewModel::class)
+  protected abstract fun searchViewModel(searchViewModel: SearchViewModel): ViewModel
 
 }

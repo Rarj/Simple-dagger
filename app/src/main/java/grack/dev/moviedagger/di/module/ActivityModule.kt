@@ -5,6 +5,7 @@ import dagger.android.ContributesAndroidInjector
 import grack.dev.moviedagger.ui.caster.CasterActivity
 import grack.dev.moviedagger.ui.detail.DetailActivity
 import grack.dev.moviedagger.ui.movie.more.MoreActivity
+import grack.dev.moviedagger.ui.movie.search.SearchActivity
 import grack.dev.moviedagger.ui.splash.SplashActivity
 
 @Module
@@ -21,5 +22,8 @@ abstract class ActivityModule {
 
   @ContributesAndroidInjector
   abstract fun contributeMoreActivity(): MoreActivity
+
+  @ContributesAndroidInjector
+  abstract fun contributeSearchActivity(): SearchActivity
 
 }

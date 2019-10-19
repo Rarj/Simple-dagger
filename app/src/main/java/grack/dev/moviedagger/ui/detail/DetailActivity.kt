@@ -88,9 +88,15 @@ class DetailActivity : BottomSheetDialogFragment() {
     binding.buttonBack.setOnClickListener { dismiss() }
 
     binding.buttonTrailer.setOnClickListener {
-      val intent = Intent(context, TrailerActivity::class.java)
-      intent.putExtra(INTENT_KEY, viewModel.itemTrailer.value?.get(0)?.key)
-      startActivity(intent)
+      if (!viewModel.itemTrailer.value!!.isEmpty()) {
+        val intent = Intent(context, TrailerActivity::class.java)
+        intent.putExtra(INTENT_KEY, viewModel.itemTrailer.value?.get(0)?.key)
+        startActivity(intent)
+      } else {
+        val intent = Intent(context, TrailerActivity::class.java)
+        intent.putExtra(INTENT_KEY, "0")
+        startActivity(intent)
+      }
     }
   }
 

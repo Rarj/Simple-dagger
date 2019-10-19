@@ -42,8 +42,8 @@ object Common {
     }
   }
 
-  fun getBitmap(view: View, urlPath: String): Bitmap {
-    return if (!urlPath.isNullOrBlank()) {
+  fun getBitmap(view: View, urlPath: String?): Bitmap {
+    return if (urlPath != null) {
       val url = URL(BASE_URL_IMAGE + urlPath)
       BitmapFactory.decodeStream(url.openConnection().getInputStream())
     } else {

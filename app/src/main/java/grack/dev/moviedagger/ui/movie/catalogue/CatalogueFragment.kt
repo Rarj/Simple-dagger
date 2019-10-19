@@ -1,5 +1,6 @@
 package grack.dev.moviedagger.ui.movie.catalogue
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,8 +12,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
+import com.jakewharton.rxbinding3.view.clicks
 import dagger.android.support.AndroidSupportInjection
 import grack.dev.moviedagger.AppConstant
+import grack.dev.moviedagger.AppConstant.DURATION_THROTTLE
 import grack.dev.moviedagger.R
 import grack.dev.moviedagger.data.repository.models.general.Movies
 import grack.dev.moviedagger.data.repository.models.general.Result
@@ -21,8 +24,10 @@ import grack.dev.moviedagger.ui.detail.DetailActivity
 import grack.dev.moviedagger.ui.movie.catalogue.model.Child
 import grack.dev.moviedagger.ui.movie.catalogue.model.SectionItem
 import grack.dev.moviedagger.ui.movie.more.MoreActivity
+import grack.dev.moviedagger.ui.movie.search.SearchActivity
 import grack.dev.moviedagger.utils.ClickListener
 import grack.dev.moviedagger.utils.MarginItemDecoration
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class CatalogueFragment(private var movies: Movies) : Fragment() {
@@ -39,6 +44,7 @@ class CatalogueFragment(private var movies: Movies) : Fragment() {
     AndroidSupportInjection.inject(this)
   }
 
+  @SuppressLint("CheckResult")
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
@@ -52,6 +58,12 @@ class CatalogueFragment(private var movies: Movies) : Fragment() {
     binding.lifecycleOwner = this
 
     populateMovie()
+
+    binding.buttonSearch.clicks()
+      .throttleFirst(DURATION_THROTTLE, TimeUnit.MILLISECONDS)
+      .subscribe {
+        startActivity(Intent(activity, SearchActivity::class.java))
+      }
 
     return binding.root
   }

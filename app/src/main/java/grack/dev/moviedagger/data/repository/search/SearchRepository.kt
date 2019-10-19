@@ -1,4 +1,4 @@
-package grack.dev.moviedagger.data.repository.movie
+package grack.dev.moviedagger.data.repository.search
 
 import grack.dev.moviedagger.data.repository.MovieService
 import grack.dev.moviedagger.data.repository.models.general.ResponseGeneral
@@ -8,10 +8,10 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Singleton
 
 @Singleton
-class MovieRepository(private val movieApiService: MovieService) {
+class SearchRepository(private val movieService: MovieService) {
 
-  fun loadMoviesByType(type: String): Observable<ResponseGeneral> {
-    return movieApiService.loadMoviesByType(type)
+  fun searchMovie(query: String): Observable<ResponseGeneral> {
+    return movieService.search(query)
       .subscribeOn(Schedulers.io())
       .observeOn(AndroidSchedulers.mainThread())
       .map { movieResponse ->
