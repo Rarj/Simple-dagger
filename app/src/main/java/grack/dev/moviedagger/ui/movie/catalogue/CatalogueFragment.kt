@@ -16,6 +16,7 @@ import com.jakewharton.rxbinding3.view.clicks
 import dagger.android.support.AndroidSupportInjection
 import grack.dev.moviedagger.AppConstant
 import grack.dev.moviedagger.AppConstant.DURATION_THROTTLE
+import grack.dev.moviedagger.AppConstant.INTENT_KEY_HEADER
 import grack.dev.moviedagger.R
 import grack.dev.moviedagger.data.repository.models.general.Movies
 import grack.dev.moviedagger.data.repository.models.general.Result
@@ -34,10 +35,12 @@ class CatalogueFragment(private var movies: Movies) : Fragment() {
 
   @Inject
   internal lateinit var viewModelFactory: ViewModelProvider.Factory
-
   private lateinit var binding: FragmentCatalogueBinding
   private lateinit var catalogueAdapter: CatalogueAdapter
   private lateinit var viewModel: CatalogueViewModel
+
+  private var child = ArrayList<Child>()
+  private val section = ArrayList<SectionItem>()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -59,50 +62,6 @@ class CatalogueFragment(private var movies: Movies) : Fragment() {
 
     populateMovie()
 
-    binding.buttonSearch.clicks()
-      .throttleFirst(DURATION_THROTTLE, TimeUnit.MILLISECONDS)
-      .subscribe {
-        startActivity(Intent(activity, SearchActivity::class.java))
-      }
-
-    return binding.root
-  }
-
-  private fun populateMovie() {
-    var child = ArrayList<Child>()
-    val section = ArrayList<SectionItem>()
-
-    movies.nowPlaying.forEachIndexed { index, result ->
-      if (index <= 4) {
-        child.add(Child(result))
-      }
-    }
-    section.add(SectionItem("NOW PLAYING", child))
-
-    child = ArrayList()
-    movies.topRated.forEachIndexed { index, result ->
-      if (index <= 4) {
-        child.add(Child(result))
-      }
-    }
-    section.add(SectionItem("TOP RATED", child))
-
-    child = ArrayList()
-    movies.popular.forEachIndexed { index, result ->
-      if (index <= 4) {
-        child.add(Child(result))
-      }
-    }
-    section.add(SectionItem("POPULAR", child))
-
-    child = ArrayList()
-    movies.upcoming.forEachIndexed { index, result ->
-      if (index <= 4) {
-        child.add(Child(result))
-      }
-    }
-    section.add(SectionItem("UPCOMING", child))
-
     catalogueAdapter = CatalogueAdapter(activity, section, object : ClickListener<Result> {
       override fun onItemClick(t: Result?) {
         startActivityDetail(t)
@@ -117,12 +76,53 @@ class CatalogueFragment(private var movies: Movies) : Fragment() {
     binding.recyclerCatalogue.addItemDecoration(MarginItemDecoration(16))
 
     catalogueAdapter.notifyDataSetChanged()
+
+    binding.buttonSearch.clicks()
+      .throttleFirst(DURATION_THROTTLE, TimeUnit.MILLISECONDS)
+      .subscribe {
+        startActivity(Intent(activity, SearchActivity::class.java))
+      }
+
+    return binding.root
+  }
+
+  private fun populateMovie() {
+    movies.nowPlaying.forEachIndexed { index, result ->
+      if (index <= 4) {
+        child.add(Child(result))
+      }
+    }
+    section.add(SectionItem(resources.getString(R.string.movie_caption_now_playing), child))
+
+    child = ArrayList()
+    movies.topRated.forEachIndexed { index, result ->
+      if (index <= 4) {
+        child.add(Child(result))
+      }
+    }
+    section.add(SectionItem(resources.getString(R.string.movie_caption_top_rated), child))
+
+    child = ArrayList()
+    movies.popular.forEachIndexed { index, result ->
+      if (index <= 4) {
+        child.add(Child(result))
+      }
+    }
+    section.add(SectionItem(resources.getString(R.string.movie_caption_popular), child))
+
+    child = ArrayList()
+    movies.upcoming.forEachIndexed { index, result ->
+      if (index <= 4) {
+        child.add(Child(result))
+      }
+    }
+    section.add(SectionItem(resources.getString(R.string.movie_caption_upcoming), child))
   }
 
   private fun startActivityMore(header: String?, movies: Movies) {
     val intent = Intent(activity, MoreActivity::class.java)
     intent.putExtra(AppConstant.INTENT_KEY, Gson().toJson(movies))
-    intent.putExtra("header", header)
+    intent.putExtra(INTENT_KEY_HEADER, header)
     startActivity(intent)
   }
 
@@ -131,6 +131,7 @@ class CatalogueFragment(private var movies: Movies) : Fragment() {
     bundle.putString(AppConstant.INTENT_KEY, Gson().toJson(data))
     val detailActivity = DetailActivity()
     detailActivity.arguments = bundle
+    detailActivity.isCancelable = false
     detailActivity.show(activity!!.supportFragmentManager, detailActivity.tag)
   }
 

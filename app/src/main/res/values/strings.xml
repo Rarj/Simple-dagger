@@ -7,6 +7,10 @@
   <string name="movie_overview">Overview Content</string>
   <string name="movie_person_name">Dwayne Johnson</string>
   <string name="movie_biography">Biography Description.</string>
+  <string name="movie_caption_now_playing">NOW PLAYING</string>
+  <string name="movie_caption_top_rated">TOP RATED</string>
+  <string name="movie_caption_popular">POPULAR</string>
+  <string name="movie_caption_upcoming">UPCOMING</string>
 
   <!--  Detail Activity-->
   <string name="detail_overview_caption">Overview</string>
@@ -15,14 +19,6 @@
 
   <!--  Now Playing-->
   <string name="now_playing_loading_caption">Loading…</string>
-
-  <!--  Movie Type-->
-  <string-array name="movie_type">
-    <item>Now Playing</item>
-    <item>Popular</item>
-    <item>Top Rated</item>
-    <item>Upcoming</item>
-  </string-array>
 
   <!--  Bottom Navigation-->
   <string name="navigation_movie">Movie</string>

@@ -3,28 +3,30 @@ package grack.dev.moviedagger.ui.movie.bottomnavigation
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.Gson
 import grack.dev.moviedagger.AppConstant
 import grack.dev.moviedagger.R
 import grack.dev.moviedagger.data.repository.models.general.Movies
+import grack.dev.moviedagger.databinding.ActivityBottomNavigationBinding
 import grack.dev.moviedagger.ui.movie.catalogue.CatalogueFragment
-import kotlinx.android.synthetic.main.activity_bottom_navigation.*
 
 class BottomNavigationActivity : AppCompatActivity(),
   BottomNavigationView.OnNavigationItemSelectedListener {
 
   private lateinit var movies: Movies
+  private lateinit var binding: ActivityBottomNavigationBinding
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_bottom_navigation)
+    binding = DataBindingUtil.setContentView(this, R.layout.activity_bottom_navigation)
 
     val intent = intent.getStringExtra(AppConstant.INTENT_KEY)
     movies = Gson().fromJson(intent, Movies::class.java)
 
-    bottom_navigation_movie.itemIconTintList = null
+    binding.bottomNavigationMovie.itemIconTintList = null
 
     loadFragment(CatalogueFragment(movies))
   }

@@ -13,6 +13,7 @@ import com.jakewharton.rxbinding3.view.clicks
 import dagger.android.AndroidInjection
 import grack.dev.moviedagger.AppConstant.DURATION_THROTTLE
 import grack.dev.moviedagger.AppConstant.INTENT_KEY
+import grack.dev.moviedagger.AppConstant.INTENT_KEY_HEADER
 import grack.dev.moviedagger.R
 import grack.dev.moviedagger.data.repository.models.general.Movies
 import grack.dev.moviedagger.data.repository.models.general.Result
@@ -44,13 +45,13 @@ class MoreActivity : AppCompatActivity() {
     binding.lifecycleOwner = this
 
     viewModel.movies = Gson().fromJson(intent.getStringExtra(INTENT_KEY), Movies::class.java)
-    viewModel.header = intent.getStringExtra("header")
+    viewModel.header = intent.getStringExtra(INTENT_KEY_HEADER)
 
     when {
-      viewModel.header == "NOW PLAYING" -> viewModel.result = viewModel.movies?.nowPlaying
-      viewModel.header == "POPULAR" -> viewModel.result = viewModel.movies?.popular
-      viewModel.header == "UPCOMING" -> viewModel.result = viewModel.movies?.upcoming
-      viewModel.header == "TOP RATED" -> viewModel.result = viewModel.movies?.topRated
+      viewModel.header == resources.getString(R.string.movie_caption_now_playing) -> viewModel.result = viewModel.movies?.nowPlaying
+      viewModel.header == resources.getString(R.string.movie_caption_popular) -> viewModel.result = viewModel.movies?.popular
+      viewModel.header == resources.getString(R.string.movie_caption_upcoming) -> viewModel.result = viewModel.movies?.upcoming
+      viewModel.header == resources.getString(R.string.movie_caption_top_rated) -> viewModel.result = viewModel.movies?.topRated
     }
 
     adapter = MoreAdapter(this, viewModel.result, object : ClickListener<Result> {

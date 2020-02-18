@@ -57,6 +57,7 @@ def lottieVersion = '3.0.7'
 def blurryVersion = '3.0.0'
 def constraintVersion = '1.1.3'
 def sectionedRecyclerVersion = '2.1.1'
+def room_version = '2.2.0'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -73,8 +74,6 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
 
     implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
 
     implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
@@ -90,6 +89,7 @@ dependencies {
     annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
 
     implementation "androidx.lifecycle:lifecycle-extensions:$lifeCycleExtensionsVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifeCycleExtensionsVersion"
 
     implementation "com.orhanobut:logger:$loggerVersion"
     implementation "org.jetbrains.anko:anko-commons:$ankoVersion"
@@ -106,5 +106,8 @@ dependencies {
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
 
 }
